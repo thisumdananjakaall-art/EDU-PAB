@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edu Pab — ශිෂ්‍යත්ව ආදර්ශ ප්‍රශ්න පත්‍ර 2025</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23FF6F59'/%3E%3Cpath d='M50 22 L86 40 L50 58 L14 40 Z' fill='%23FFFFFF'/%3E%3Cpath d='M28 47 V66 C28 66 38 76 50 76 C62 76 72 66 72 66 V47 L50 58 Z' fill='%23FFD23F'/%3E%3Ccircle cx='84' cy='40' r='4' fill='%23FFFFFF'/%3E%3Crect x='83' y='40' width='2' height='22' fill='%23FFFFFF'/%3E%3C/svg%3E" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&family=Noto+Sans+Sinhala:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#3DB8F5;
+    --sky-deep:#1E93D2;
+    --sun:#FFD23F;
+    --coral:#FF6F59;
+    --mint:#3ED9A3;
+    --grape:#8B6FE0;
+    --cream:#FFF9EC;
+    --ink:#233D4D;
+    --ink-soft:#5B7183;
+    --white:#FFFFFF;
+    --radius-lg:28px;
+    --radius-md:18px;
+    --shadow-soft: 0 10px 24px rgba(35,61,77,0.10);
+    --shadow-pop: 0 16px 34px rgba(35,61,77,0.16);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--cream);
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(61,184,245,0.14) 0, transparent 40%),
+      radial-gradient(circle at 92% 18%, rgba(255,210,63,0.18) 0, transparent 38%),
+      radial-gradient(circle at 12% 92%, rgba(62,217,163,0.16) 0, transparent 42%),
+      radial-gradient(circle at 90% 88%, rgba(139,111,224,0.12) 0, transparent 40%);
+    font-family:'Nunito', 'Noto Sans Sinhala', sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  :lang(si), .si{ font-family:'Noto Sans Sinhala','Nunito',sans-serif; }
+  h1,h2,h3,.display{ font-family:'Baloo 2','Noto Sans Sinhala',sans-serif; }
+
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 20px 80px; }
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 20px; max-width:1080px; margin:0 auto;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand-badge{
+    width:40px; height:40px; border-radius:12px; background:var(--coral);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    box-shadow: var(--shadow-soft);
+  }
+  .brand-badge svg{ width:24px; height:24px; }
+  .brand-name{ font-family:'Baloo 2',sans-serif; font-weight:700; font-size:1.25rem; color:var(--ink); }
+  .brand-name span{ color:var(--sky-deep); }
+  .lang-toggle{
+    display:flex; background:var(--white); border-radius:999px; padding:4px;
+    box-shadow: var(--shadow-soft); gap:2px; flex-wrap:wrap;
+  }
+  .lang-toggle button{
+    border:none; background:transparent; padding:8px 14px; border-radius:999px;
+    font-weight:700; font-size:0.82rem; color:var(--ink-soft); transition:all .2s; white-space:nowrap;
+  }
+  .lang-toggle button.active{ background:var(--sky); color:var(--white); }
+
+  /* ---------- Hero ---------- */
+  .hero{ text-align:center; padding:28px 20px 10px; }
+  .hero h1{ font-size:2.1rem; font-weight:700; margin:0 0 8px; line-height:1.25; color:var(--ink); }
+  .hero h1 em{ font-style:normal; color:var(--sky-deep); }
+  .hero p{ color:var(--ink-soft); font-size:1.02rem; max-width:520px; margin:0 auto; font-weight:600; }
+
+  /* ---------- Odometer / flip score ---------- */
+  .odometer-row{ display:flex; justify-content:center; align-items:center; gap:18px; margin:26px 0 8px; flex-wrap:wrap; }
+  .odometer{ display:flex; gap:6px; perspective:600px; }
+  .flip-digit{
+    width:46px; height:64px; position:relative; border-radius:10px;
+    background:linear-gradient(180deg,var(--ink) 0%,#31536b 100%);
+    box-shadow: var(--shadow-pop);
+  }
+  .flip-digit .face{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2',sans-serif; font-size:2rem; font-weight:700; color:var(--sun);
+    backface-visibility:hidden;
+  }
+  .flip-digit .face::after{
+    content:''; position:absolute; left:0; right:0; top:50%; height:2px; background:rgba(0,0,0,0.35);
+  }
+  .flip-digit.flip .face{ animation: flipdown 0.7s ease forwards; }
+  @keyframes flipdown{
+    0%{ transform: rotateX(90deg); opacity:0; }
+    60%{ transform: rotateX(-10deg); opacity:1; }
+    100%{ transform: rotateX(0deg); }
+  }
+  .odometer-label{ font-weight:800; color:var(--ink-soft); font-size:0.95rem; }
+  .odometer-label b{ display:block; font-size:1.5rem; color:var(--ink); font-family:'Baloo 2',sans-serif; }
+
+  /* ---------- Breadcrumb ---------- */
+  .crumbs{ display:flex; align-items:center; gap:8px; margin:22px 0 18px; flex-wrap:wrap; font-weight:700; font-size:0.92rem; color:var(--ink-soft); }
+  .crumbs button{ background:var(--white); border:none; padding:8px 14px; border-radius:999px; box-shadow:var(--shadow-soft); color:var(--sky-deep); font-weight:800; }
+  .crumbs .sep{ opacity:0.5; }
+  .crumbs .current{ color:var(--ink); }
+
+  /* ---------- Category grid ---------- */
+  .grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px;
+    margin-top:10px;
+  }
+  .tilt-card{ perspective:900px; }
+  .cat-card{
+    background:var(--white); border-radius:var(--radius-lg); padding:22px 20px;
+    box-shadow:var(--shadow-soft); border:2px solid transparent;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    transform-style:preserve-3d; height:100%; display:flex; flex-direction:column; gap:10px;
+  }
+  .tilt-card:hover .cat-card{
+    transform: translateY(-6px) rotateX(4deg) rotateY(-4deg);
+    box-shadow:var(--shadow-pop);
+    border-color: var(--accent, var(--sky));
+  }
+  .cat-icon{
+    width:52px; height:52px; border-radius:16px; display:flex; align-items:center; justify-content:center;
+    font-size:1.6rem; background:var(--accent-soft,#E7F6FF);
+  }
+  .cat-card h3{ font-size:1.08rem; margin:0; color:var(--ink); line-height:1.35; }
+  .cat-card .meta{ margin-top:auto; display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; color:var(--ink-soft); font-weight:700; }
+  .pill{ background:var(--accent-soft,#E7F6FF); color:var(--accent-deep,var(--sky-deep)); padding:4px 12px; border-radius:999px; font-weight:800; }
+
+  /* ---------- Paper list ---------- */
+  .cat-header{ display:flex; align-items:center; gap:16px; margin-bottom:22px; flex-wrap:wrap; }
+  .cat-header .cat-icon{ width:64px; height:64px; font-size:2rem; border-radius:20px; }
+  .cat-header h2{ margin:0; font-size:1.5rem; }
+  .cat-header p{ margin:4px 0 0; color:var(--ink-soft); font-weight:600; max-width:640px; }
+
+  .paper-list{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px; }
+  .paper-card{
+    background:var(--white); border-radius:var(--radius-md); padding:18px;
+    box-shadow:var(--shadow-soft); display:flex; align-items:center; gap:14px;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .paper-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-pop); }
+  .paper-num{
+    width:44px; height:44px; border-radius:14px; background:var(--sun); color:var(--ink);
+    display:flex; align-items:center; justify-content:center; font-family:'Baloo 2',sans-serif;
+    font-weight:800; font-size:1.15rem; flex-shrink:0;
+  }
+  .paper-card .ptxt b{ display:block; font-size:1rem; }
+  .paper-card .ptxt span{ font-size:0.82rem; color:var(--ink-soft); font-weight:700; }
+
+  /* ---------- Paper detail ---------- */
+  .paper-detail{
+    background:var(--white); border-radius:var(--radius-lg); padding:32px 26px;
+    box-shadow:var(--shadow-pop); text-align:center; max-width:620px; margin:0 auto;
+  }
+  .preview-frame{
+    width:100%; aspect-ratio:3/4; border:none; border-radius:16px; overflow:hidden;
+    box-shadow:var(--shadow-soft); margin-bottom:20px; background:#F1F5F8;
+  }
+  .preview-wrap{ position:relative; }
+  .preview-loading{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    border-radius:16px; background:#F1F5F8; font-weight:700; color:var(--ink-soft); font-size:0.9rem;
+    margin-bottom:20px; pointer-events:none;
+  }
+  @media (max-width:520px){ .preview-frame{ aspect-ratio:3/4.4; } }
+  .paper-detail .big-icon{
+    width:76px; height:76px; margin:0 auto 14px; border-radius:22px; background:var(--accent-soft,#E7F6FF);
+    display:flex; align-items:center; justify-content:center; font-size:2.2rem;
+  }
+  .paper-detail h2{ margin:0 0 6px; font-size:1.4rem; }
+  .paper-detail .desc{ color:var(--ink-soft); font-weight:600; font-size:0.96rem; line-height:1.6; margin-bottom:22px; }
+  .dl-buttons{ display:flex; flex-direction:column; gap:12px; }
+  .dl-btn{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    padding:15px 20px; border-radius:16px; font-weight:800; font-size:1rem;
+    box-shadow:var(--shadow-soft); transition:transform .18s ease, box-shadow .18s ease;
+    border:none;
+  }
+  .dl-btn:hover{ transform:translateY(-3px) scale(1.015); box-shadow:var(--shadow-pop); }
+  .dl-btn.paper{ background:var(--sky); color:var(--white); }
+  .dl-btn.answer{ background:var(--mint); color:var(--white); }
+  .note{ margin-top:16px; font-size:0.8rem; color:var(--ink-soft); font-weight:700; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    margin-top:60px; text-align:center; padding:30px 20px 40px; color:var(--ink-soft);
+  }
+  .quote{
+    font-family:'Baloo 2','Noto Sans Sinhala',sans-serif; font-weight:600; font-size:1.05rem;
+    color:var(--ink); max-width:560px; margin:0 auto 22px; line-height:1.6;
+  }
+  .credits{
+    display:flex; justify-content:center; gap:22px; flex-wrap:wrap; font-size:0.82rem; font-weight:800; margin-bottom:14px;
+  }
+  .credits span{ display:flex; align-items:center; gap:6px; }
+  .footer-logo{ display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:10px; }
+  .footer-logo .brand-badge{ width:30px; height:30px; border-radius:9px; }
+  .footer-logo .brand-badge svg{ width:18px; height:18px; }
+  .copyright{ font-size:0.78rem; font-weight:700; opacity:0.8; }
+
+  @media (max-width:520px){
+    .hero h1{ font-size:1.6rem; }
+    .flip-digit{ width:36px; height:52px; }
+    .flip-digit .face{ font-size:1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="edu-pab-Scholarship_Exam_model_papers_home.html" style="text-decoration:none">
+    <div class="brand-badge">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 22 L86 40 L50 58 L14 40 Z" fill="#FFFFFF"/>
+        <path d="M28 47 V66 C28 66 38 76 50 76 C62 76 72 66 72 66 V47 L50 58 Z" fill="#FFD23F"/>
+        <circle cx="84" cy="40" r="3.2" fill="#FFFFFF"/>
+        <rect x="83" y="40" width="1.6" height="20" fill="#FFFFFF"/>
+      </svg>
+    </div>
+    <div class="brand-name">Edu <span>Pab</span></div>
+  </a>
+  <div class="lang-toggle">
+    <button id="btn-si" class="active" onclick="setLang('si')">සිංහල</button>
+    <button id="btn-ta" onclick="setLang('ta')">தமிழ்</button>
+    <button id="btn-en" onclick="setLang('en')">English</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <h1 id="hero-title" class="si">ශිෂ්‍යත්ව විභාගය <em>ආදර්ශ ප්‍රශ්න පත්‍ර 2025</em></h1>
+    <p id="hero-sub" class="si">පළාත් හා කලාප අනුව වර්ගීකරණය කළ 2025 ශිෂ්‍යත්ව ආදර්ශ ප්‍රශ්න පත්‍ර එකතුව</p>
+  </div>
+
+  <div class="odometer-row">
+    <div class="odometer" id="odometer"></div>
+    <div class="odometer-label si">මුළු ප්‍රශ්න<br>පත්‍ර ගණන</div>
+  </div>
+
+  <div class="crumbs" id="crumbs"></div>
+
+  <div id="view"></div>
+</div>
+
+<footer>
+  <p class="quote si">"මෙහි මුල් ආකෘතියට හා අන්තර්ගතයට අප ගරු කරමු — සියලුම ප්‍රශ්න පත්‍ර අදාළ අධ්‍යාපන කාර්යාල වෙත ගෞරවයෙන් ආරෝපණය කෙරේ."</p>
+  <div class="footer-logo">
+    <div class="brand-badge">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 22 L86 40 L50 58 L14 40 Z" fill="#FFFFFF"/>
+        <path d="M28 47 V66 C28 66 38 76 50 76 C62 76 72 66 72 66 V47 L50 58 Z" fill="#FFD23F"/>
+      </svg>
+    </div>
+    <b>Known Studio</b>
+  </div>
+  <div class="credits">
+    <span>🎨 Design by Known Studio</span>
+    <span>🛡️ Security by Cloudflare</span>
+    <span>☁️ Storage by Google Drive</span>
+  </div>
+  <div class="copyright">© 2025 Edu Pab · All papers belong to their respective publishers</div>
+</footer>
+
+<script>
+/* ---------------- Data ---------------- */
+const CATEGORIES = [
+  { id:'adithi', icon:'🏛️', accent:'#FFD23F', accentSoft:'#FFF8E1', accentDeep:'#C79A00',
+    name:{si:'අදිති – අනුරාධපුර කලාප අධ්‍යාපන කාර්යාලය', en:'Adithi – Anuradhapura Zonal Education Office'},
+    publisher:'the Zonal Education Office, Anuradhapura', withAnswers:true,
+    papers:['1FKNxiQbq6ruyC8nm0joOMDtKVC-FBRa4','1QEdap2axuWFyN1P01k7yBlYo5eR200H4','1iPNf7-KI8pMsrFVIZXfI2-5Neg_l7YP3','1qJaDwOy5EFtxFoQ0NJs84dED3IKV4mXE','10XRy1UzWOx5SXfkAF9bW5h883mPy9rLC','1HCxvAJkMaTjevpoBshcJP9fyKwCCVsTg'] },
+  { id:'pubudina', icon:'🏔️', accent:'#3ED9A3', accentSoft:'#E4FBF3', accentDeep:'#1FAE80',
+    name:{si:'පුබුදින පස් පියුම් – කලාප අධ්‍යාපන කාර්යාලය මහනුවර', en:'Pubudina Pas Piyum – Zonal Education Office Kandy'},
+    publisher:'the Zonal Education Office, Kandy', withAnswers:true,
+    papers:['1oSh2JpquVFxqt8nmN5HZHJfHkVyJCVRv','1SVwaaK_Phu5pOYE_DgnBVjRAylmkBkGh','1O6da6OMCWB2rVFSCuVVxyLx68Q38uCnd','1ARhIBZOhw1X6leiaC8F8CWrEb6tzTp2q'] },
+  { id:'vikasitha', icon:'🌸', accent:'#FF6F59', accentSoft:'#FFEDE9', accentDeep:'#D94F3B',
+    name:{si:'විකසිත – කලාප අධ්‍යාපන කාර්යාලය ගම්පහ', en:'Vikasitha – Zonal Education Office Gampaha'},
+    publisher:'the Zonal Education Office, Gampaha', withAnswers:true,
+    papers:['1eoq00YO9kgHzcJ5BSBpb3rGLl0WPKykp','1Yt-gTYbLCOadAd2oT66e8V16AIwMyVan','1bu9f08JxyJw0B0RCV_O86pCg_8ahUerL'] },
+  { id:'kelaniya', icon:'🏫', accent:'#3DB8F5', accentSoft:'#E7F6FF', accentDeep:'#1E93D2',
+    name:{si:'කැලණිය අධ්‍යාපන කලාපය – ආදර්ශ ප්‍රශ්න පත්‍ර', en:'Kelaniya Education Zone – Model Papers'},
+    publisher:'the Zonal Education Office, Kelaniya', withAnswers:true,
+    papers:['1lpjaKmk0kWsBNCquH2YtGCLXa2etV0Up','1Rj4WdRBfkaJNz6eusHnr9IxoFbYZgOoZ','12Jj7-FY12UCIMuP8R54ASJtZecZZ2kQB'] },
+  { id:'nenasilu', icon:'🌾', accent:'#8B6FE0', accentSoft:'#EFEBFC', accentDeep:'#6B4FC2',
+    name:{si:'නෙන සිලු – කලාප අධ්‍යාපන කාර්යාලය කුරුණෑගල', en:'Nena Silu – Zonal Education Office Kurunegala'},
+    publisher:'the Zonal Education Office, Kurunegala', withAnswers:true,
+    papers:['1wJI88CAgn4kU59rV0DrVUDgcxVs3RIbg','1O6Fk8cEQVDdBAxv8DI53G_CiMgkoobvr','1ccWIzStDEfFlXQutBWo6MlE9IDQkOrrh'] },
+  { id:'sisuprabha', icon:'🌴', accent:'#3DB8F5', accentSoft:'#E7F6FF', accentDeep:'#1E93D2',
+    name:{si:'සිසු ප්‍රභා – කලාප අධ්‍යාපන කාර්යාලය කළුතර', en:'Sisu Prabha – Zonal Education Office Kalutara'},
+    publisher:'the Zonal Education Office, Kalutara', withAnswers:true,
+    papers:['1VeG5LrWJc-6pne554TneM0m7f1HMc2tr','13C6M6wwiqz9Vq3QH2SVkNs3b6WAxJTqP','1EmCG-PHuRwEhF3wj92GtttL2sySJ_Nc_','1W3Cly1hjyvW4h5RmchOjDThx5l3eXHte','1cQkK5jVzKK44XLjC0Ug1ebIRFOdOFuN9'] },
+  { id:'western', icon:'🏙️', accent:'#FFD23F', accentSoft:'#FFF8E1', accentDeep:'#C79A00',
+    name:{si:'බස්නාහිර පළාත ආදර්ශ ප්‍රශ්න පත්‍ර', en:'Western Province Model Papers'},
+    publisher:'the Department of Education, Western Province', withAnswers:true,
+    papers:['15F8IuDrx9YTFv3IEKMeRpjhbIdkJKIE-','1B7DQuenKvcIgEqdVkAuQ5qfrlVR8srS6','1fP7QpJOLG2yVwPFxhKAsYg5haznGj-eV','1b9WtOe4gPyG4VOGVAAQXuxNTZE_3AUOo','1x-Wxb64VK8P6BkNeQnOQ1m3eBQrTXD7a'] },
+  { id:'sisusaviya', icon:'🌿', accent:'#3ED9A3', accentSoft:'#E4FBF3', accentDeep:'#1FAE80',
+    name:{si:'සිසු සවිය – සබරගමුව පළාත', en:'Sisu Saviya – Sabaragamuwa Province'},
+    publisher:'the Provincial Education Office, Sabaragamuwa', withAnswers:true,
+    papers:['15S3HWSiMWzs4_qhuR4mReSRsuJ3ysQSD','16QyTIbcEHEjuqV-ayF8hCYZBI7lY0jEh','1MPG9LmAcI9o_bXZhFb4oj9ZWd4bnBsF4','1fVcfZSvAIin0qW8dO1jKrZtkel2--P-w','1qR6PLBI2HW6vPm1cS78At1RS9qNuhL_J'] },
+  { id:'sisunipunatha', icon:'🎓', accent:'#8B6FE0', accentSoft:'#EFEBFC', accentDeep:'#6B4FC2',
+    name:{si:'සිසු නිපුණත්ව – මධ්‍යම පළාත', en:'Sisu Nipunatha – Central Province'},
+    publisher:'the Provincial Department of Education, Central Province', withAnswers:true,
+    papers:['1I0Yba7xIyqyEuSO5NDbdXAeJ4vR3hEKu'] },
+  { id:'bovitiya', icon:'🌊', accent:'#FF6F59', accentSoft:'#FFEDE9', accentDeep:'#D94F3B',
+    name:{si:'බෝවිටිය මල් යාය – දකුණු පළාත් අධ්‍යාපන දෙපාර්තමේන්තුව', en:'Bovitiya Mal Yaya – Provincial Department of Education, Southern Province'},
+    publisher:'the Provincial Department of Education, Southern Province', withAnswers:true,
+    papers:['10IZ27ezc4HublPl95_HOi0ku0uG5H6iU','1WoTvFImaa29cY-ySu5ijoNQgDvXPD3hH','1lxKvKVfGx_q1-6FK_Y5Eog0qjLgv1k7A','16QxwphzkFm1UUULEjaukztaZ4zajcF0K','1OosZuZyn7zr3jEq1e3BKdnkxAk5obCN6'] },
+];
+
+const TOTAL_PAPERS = CATEGORIES.reduce((a,c)=>a+c.papers.length,0);
+
+const TXT = {
+  si:{ home:'මුල් පිටුව', papersLabel:(n)=>`ප්‍රශ්න පත්‍ර ${n}ක්`, modelPaper:(n)=>`ආදර්ශ ප්‍රශ්න පත්‍රය ${n}`,
+       viewCat:'කාණ්ඩය තෝරන්න', dlPaper:'ප්‍රශ්න පත්‍රය බාගන්න', dlAnswer:'පිළිතුරු පත්‍රය බාගන්න',
+       combinedNote:'මෙම ගොනුවේම ප්‍රශ්න හා පිළිතුරු දෙකම ඇතුළත් වේ', back:'← ආපසු', loading:'පෙරදසුන පූරණය වෙමින්…' },
+  ta:{ home:'முகப்பு', papersLabel:(n)=>`${n} மாதிரி வினாத்தாள்கள்`, modelPaper:(n)=>`மாதிரி வினாத்தாள் ${n}`,
+       viewCat:'பிரிவைத் தேர்ந்தெடுக்கவும்', dlPaper:'வினாத்தாளைப் பதிவிறக்கவும்', dlAnswer:'விடைத்தாளைப் பதிவிறக்கவும்',
+       combinedNote:'இந்த கோப்பில் வினாக்களும் விடைகளும் ஒன்றாக உள்ளன', back:'← பின்', loading:'முன்னோட்டம் ஏற்றப்படுகிறது…' },
+  en:{ home:'Home', papersLabel:(n)=>`${n} papers`, modelPaper:(n)=>`Model Paper ${n}`,
+       viewCat:'View category', dlPaper:'Download Model Paper', dlAnswer:'Download Answer Sheet',
+       combinedNote:'The paper and the answer sheet are included in the same file', back:'← Back', loading:'Loading preview…' }
+};
+
+function desc(cat, n, lang){
+  const withAns = cat.withAnswers ? ' with Answers' : '';
+  const en = `Download 2025 ${cat.name.en.split('–')[0].trim()} Grade 05 Scholarship Model Paper ${String(n).padStart(2,'0')}${withAns}, published by ${cat.publisher}. You can access and download the official PDF for free using the buttons below.`;
+  return en;
+}
+
+/* ---------------- State & routing ---------------- */
+let lang = 'si';
+let state = { view:'home', catId:null, paperIdx:null };
+
+const HERO = {
+  si:{ title:'ශිෂ්‍යත්ව විභාගය ආදර්ශ ප්‍රශ්න පත්‍ර 2025', sub:'පළාත් හා කලාප අනුව වර්ගීකරණය කළ 2025 ශිෂ්‍යත්ව ආදර්ශ ප්‍රශ්න පත්‍ර එකතුව' },
+  ta:{ title:'ஐந்தாம் தர புலமைப்பரிசில் மாதிரி வினாத்தாள்கள் 2025', sub:'மாகாணம் மற்றும் வலயம் வாரியாக வகைப்படுத்தப்பட்ட 2025 மாதிரி வினாத்தாள் தொகுப்பு' },
+  en:{ title:'Grade 5 Scholarship Model Papers 2025', sub:'A 2025 collection of Grade 5 Scholarship model papers, sorted by province and zone' }
+};
+
+function setLang(l){
+  lang = l;
+  document.getElementById('btn-si').classList.toggle('active', l==='si');
+  document.getElementById('btn-ta').classList.toggle('active', l==='ta');
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  document.getElementById('hero-title').textContent = HERO[l].title;
+  document.getElementById('hero-sub').textContent = HERO[l].sub;
+  render();
+}
+
+function go(view, catId, paperIdx){
+  state = { view, catId: catId||null, paperIdx: (paperIdx===undefined?null:paperIdx) };
+  window.scrollTo({top:0, behavior:'smooth'});
+  render();
+}
+
+function renderCrumbs(){
+  const t = TXT[lang];
+  const el = document.getElementById('crumbs');
+  let html = `<button onclick="go('home')">🏠 ${t.home}</button>`;
+  if(state.view!=='home'){
+    const cat = CATEGORIES.find(c=>c.id===state.catId);
+    html += `<span class="sep">›</span><button onclick="go('category','${cat.id}')">${(cat.name[lang]||cat.name.en)}</button>`;
+  }
+  if(state.view==='paper'){
+    const t2 = TXT[lang];
+    html += `<span class="sep">›</span><span class="current">${t2.modelPaper(state.paperIdx+1)}</span>`;
+  }
+  el.innerHTML = html;
+}
+
+function render(){
+  renderCrumbs();
+  const t = TXT[lang];
+  const el = document.getElementById('view');
+
+  if(state.view==='home'){
+    el.innerHTML = `<div class="grid">${CATEGORIES.map(c=>`
+      <a class="tilt-card" href="javascript:void(0)" onclick="go('category','${c.id}')">
+        <div class="cat-card" style="--accent:${c.accent}">
+          <div class="cat-icon" style="background:${c.accentSoft}">${c.icon}</div>
+          <h3 class="si">${(c.name[lang]||c.name.en)}</h3>
+          <div class="meta">
+            <span class="pill" style="background:${c.accentSoft};color:${c.accentDeep}">${t.papersLabel(c.papers.length)}</span>
+            <span>${t.viewCat} →</span>
+          </div>
+        </div>
+      </a>`).join('')}</div>`;
+    return;
+  }
+
+  if(state.view==='category'){
+    const cat = CATEGORIES.find(c=>c.id===state.catId);
+    el.innerHTML = `
+      <div class="cat-header">
+        <div class="cat-icon" style="background:${cat.accentSoft}">${cat.icon}</div>
+        <div>
+          <h2 class="si">${(cat.name[lang]||cat.name.en)}</h2>
+          <p>${t.papersLabel(cat.papers.length)}</p>
+        </div>
+      </div>
+      <div class="paper-list">
+        ${cat.papers.map((id,i)=>`
+          <div class="paper-card" onclick="go('paper','${cat.id}',${i})" style="cursor:pointer">
+            <div class="paper-num" style="background:${cat.accent};color:white">${i+1}</div>
+            <div class="ptxt">
+              <b class="si">${t.modelPaper(i+1)}</b>
+              <span>PDF · Google Drive</span>
+            </div>
+          </div>`).join('')}
+      </div>`;
+    return;
+  }
+
+  if(state.view==='paper'){
+    const cat = CATEGORIES.find(c=>c.id===state.catId);
+    const idx = state.paperIdx;
+    const fileId = cat.papers[idx];
+    const url = `https://drive.google.com/file/d/${fileId}/view?usp=drivesdk`;
+    const previewUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+    el.innerHTML = `
+      <div class="paper-detail">
+        <div class="big-icon" style="background:${cat.accentSoft}">${cat.icon}</div>
+        <h2 class="si">${t.modelPaper(idx+1)}</h2>
+        <p class="desc">${desc(cat, idx+1, lang)}</p>
+        <div class="preview-wrap">
+          <div class="preview-loading si" id="preview-loading">⏳ ${t.loading}</div>
+          <iframe class="preview-frame" src="${previewUrl}" loading="lazy" allow="autoplay" onload="document.getElementById('preview-loading') && (document.getElementById('preview-loading').style.display='none')"></iframe>
+        </div>
+        <div class="dl-buttons">
+          <a class="dl-btn paper" href="${url}" target="_blank" rel="noopener">📄 ${t.dlPaper}</a>
+          <a class="dl-btn answer" href="${url}" target="_blank" rel="noopener">✅ ${t.dlAnswer}</a>
+        </div>
+        <div class="note si">${t.combinedNote}</div>
+      </div>`;
+    return;
+  }
+}
+
+/* ---------------- Odometer animation ---------------- */
+function buildOdometer(){
+  const str = String(TOTAL_PAPERS).padStart(2,'0');
+  const box = document.getElementById('odometer');
+  box.innerHTML = str.split('').map(()=>`<div class="flip-digit"><div class="face">0</div></div>`).join('');
+  const digits = box.querySelectorAll('.flip-digit');
+  str.split('').forEach((d,i)=>{
+    setTimeout(()=>{
+      const el = digits[i];
+      el.classList.add('flip');
+      el.querySelector('.face').textContent = d;
+    }, 300 + i*220);
+  });
+}
+
+buildOdometer();
+render();
+</script>
+</body>
+</html>

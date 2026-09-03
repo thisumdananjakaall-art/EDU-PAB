@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade 5 Scholarship Exam Paper Archive | Known Studio</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23FF6F59'/%3E%3Cpath d='M50 22 L86 40 L50 58 L14 40 Z' fill='%23FFFFFF'/%3E%3Cpath d='M28 47 V66 C28 66 38 76 50 76 C62 76 72 66 72 66 V47 L50 58 Z' fill='%23FFD23F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#3DB8F5; --sky-deep:#1E93D2;
+    --sun:#FFD23F; --sun-deep:#C79A00;
+    --coral:#FF6F59; --coral-deep:#D94F3B;
+    --mint:#3ED9A3; --mint-deep:#1FAE80;
+    --grape:#8B6FE0; --grape-deep:#6B4FC2;
+    --cream:#FFF9EC; --ink:#233D4D; --ink-soft:#5B7183; --white:#FFFFFF;
+    --radius-lg:28px; --radius-md:18px;
+    --shadow-soft:0 10px 24px rgba(35,61,77,0.10);
+    --shadow-pop:0 16px 34px rgba(35,61,77,0.16);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    background-image:
+      radial-gradient(circle at 8% 10%, rgba(61,184,245,0.14) 0, transparent 40%),
+      radial-gradient(circle at 92% 16%, rgba(255,210,63,0.20) 0, transparent 38%),
+      radial-gradient(circle at 14% 92%, rgba(62,217,163,0.16) 0, transparent 42%),
+      radial-gradient(circle at 90% 90%, rgba(139,111,224,0.12) 0, transparent 40%);
+    color:var(--ink);
+    font-family:'Nunito','Noto Sans Sinhala','Noto Sans Tamil',sans-serif;
+    min-height:100vh; overflow-x:hidden; perspective:1800px;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,.num,.eyebrow,.foot-logo{ font-family:'Baloo 2','Noto Sans Sinhala','Noto Sans Tamil',sans-serif; }
+
+  /* ---------- fun dot band (like exam OMR bubbles, but happy colours) ---------- */
+  .omr-band{ display:flex; justify-content:center; gap:9px; padding:4px 0 22px; }
+  .omr-band span{ width:9px; height:9px; border-radius:50%; background:var(--sky); opacity:.45; }
+  .omr-band span:nth-child(4n+1){ background:var(--coral); }
+  .omr-band span:nth-child(4n+2){ background:var(--sun); }
+  .omr-band span:nth-child(4n+3){ background:var(--mint); }
+
+  .topbar{ display:flex; align-items:center; justify-content:center; padding:18px 20px 0; max-width:980px; margin:0 auto; }
+  .lang-toggle{ display:flex; background:var(--white); border-radius:999px; padding:4px; box-shadow:var(--shadow-soft); gap:2px; flex-wrap:wrap; justify-content:center; }
+  .lang-toggle button{
+    border:none; background:transparent; padding:8px 14px; border-radius:999px;
+    font-weight:800; font-size:0.82rem; color:var(--ink-soft); transition:all .2s; white-space:nowrap;
+    font-family:'Nunito','Noto Sans Sinhala','Noto Sans Tamil',sans-serif; cursor:pointer;
+  }
+  .lang-toggle button.active{ background:var(--sky); color:var(--white); }
+
+  header.top{ max-width:980px; margin:0 auto; padding:20px 24px 6px; text-align:center; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:800;
+    letter-spacing:.02em; color:var(--coral-deep); background:#FFEDE9;
+    padding:6px 14px; border-radius:999px; margin-bottom:16px;
+  }
+  h1{ font-size:clamp(26px,4.6vw,42px); line-height:1.28; margin:0 0 12px; font-weight:700; color:var(--ink); }
+  .sub{ color:var(--ink-soft); font-size:15px; max-width:600px; margin:0 auto; line-height:1.7; font-weight:600; transition:opacity .3s ease; }
+
+  .stage{ max-width:1080px; margin:0 auto; padding:6px 24px 60px; }
+
+  /* ---------- view transition ---------- */
+  .view{ transform-style:preserve-3d; transition:transform .6s cubic-bezier(.65,0,.35,1), opacity .45s ease; }
+  .view.leaving-fwd{ transform:rotateY(-90deg) translateZ(-120px); opacity:0; }
+  .view.leaving-back{ transform:rotateY(90deg) translateZ(-120px); opacity:0; }
+  .view.entering-fwd{ transform:rotateY(90deg) translateZ(-120px); opacity:0; }
+  .view.entering-back{ transform:rotateY(-90deg) translateZ(-120px); opacity:0; }
+  .view.settled{ transform:rotateY(0) translateZ(0); opacity:1; }
+
+  /* ---------- medium selector ---------- */
+  .selector-head{ text-align:center; margin-bottom:28px; }
+  .selector-head .kicker{ font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
+  .selector-head .title-main{ font-size:21px; font-weight:700; }
+
+  .grid.medium-grid{ display:flex; flex-direction:column; gap:16px; max-width:600px; margin:0 auto; }
+  .card.medium-card{
+    display:flex; align-items:center; gap:18px; padding:24px 26px; text-align:left;
+    background:var(--white); border-radius:var(--radius-lg); border:2px solid transparent;
+    box-shadow:var(--shadow-soft); transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    cursor:pointer;
+  }
+  .card.medium-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-pop); border-color:var(--mcolor,var(--sky)); }
+  .medium-emoji{
+    width:56px; height:56px; border-radius:18px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    font-size:1.8rem; background:var(--msoft,#E7F6FF);
+  }
+  .medium-text{ display:flex; flex-direction:column; gap:4px; }
+  .medium-card .num{ font-size:19px; font-weight:700; color:var(--ink); }
+  .medium-card .tag{ font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .medium-card .corner{ margin-left:auto; font-weight:800; color:var(--mdeep,var(--sky-deep)); font-size:1.3rem; flex-shrink:0; }
+
+  /* ---------- year grid ---------- */
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:16px; }
+  .card{
+    position:relative; background:var(--white); border-radius:var(--radius-md);
+    border:2px solid transparent; padding:20px 16px 16px; cursor:pointer;
+    transform-style:preserve-3d; box-shadow:var(--shadow-soft);
+    transition:border-color .25s ease, box-shadow .25s ease; will-change:transform;
+  }
+  .card:hover{ border-color:var(--sky); box-shadow:var(--shadow-pop); }
+  .card .num{ font-size:28px; font-weight:800; color:var(--ink); transform:translateZ(28px); display:block; }
+  .card .tag{ display:block; margin-top:8px; font-size:12px; font-weight:700; color:var(--ink-soft); transform:translateZ(20px); }
+  .card .corner{
+    position:absolute; top:14px; right:14px; width:22px; height:22px; border-radius:50%;
+    background:#EEF3F6; color:var(--ink-soft); font-size:11px; font-weight:800;
+    display:flex; align-items:center; justify-content:center; transform:translateZ(24px);
+  }
+  .card.combined .corner{ background:var(--mint); color:var(--white); }
+
+  /* ---------- detail view ---------- */
+  .back-btn{
+    display:inline-flex; align-items:center; gap:8px; background:var(--white); border:none; color:var(--sky-deep);
+    font-family:'Nunito','Noto Sans Sinhala','Noto Sans Tamil',sans-serif; font-weight:800; font-size:13.5px;
+    padding:10px 18px; border-radius:999px; cursor:pointer; margin-bottom:24px;
+    box-shadow:var(--shadow-soft); transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .back-btn:hover{ transform:translateX(-3px); box-shadow:var(--shadow-pop); }
+  .top-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; margin-bottom:6px; }
+
+  .detail-head{ text-align:center; margin-bottom:28px; }
+  .detail-head .num{ font-size:48px; font-weight:800; color:var(--ink); }
+  .detail-head .desc{ color:var(--ink-soft); font-size:14px; font-weight:700; margin-top:6px; }
+
+  .actions{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-bottom:36px; }
+  .action-btn{
+    position:relative; display:flex; align-items:center; gap:12px; min-width:220px;
+    background:var(--sky); color:var(--white); border:none; border-radius:16px; padding:16px 20px;
+    text-decoration:none; cursor:pointer; transform-style:preserve-3d;
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+    box-shadow:var(--shadow-soft); font-weight:800;
+  }
+  .action-btn:nth-of-type(2n){ background:var(--mint); }
+  .action-btn:hover{ transform:translateY(-4px) rotateX(6deg); box-shadow:var(--shadow-pop); }
+  .action-btn .emoji{ font-size:1.4rem; }
+  .action-btn .btn-label-en{ font-size:10px; letter-spacing:.08em; text-transform:uppercase; opacity:.85; display:block; }
+  .action-btn .btn-label-si{ font-size:15px; font-weight:800; }
+
+  .previews{ display:flex; flex-direction:column; gap:24px; }
+  .preview-block .cap{ display:flex; align-items:center; gap:8px; font-size:13px; font-weight:800; color:var(--ink-soft); margin-bottom:10px; }
+  .preview-block .cap::before{ content:'👀'; font-size:14px; }
+  .preview-frame{
+    position:relative; border-radius:20px; overflow:hidden; background:var(--white);
+    padding:10px; box-shadow:var(--shadow-pop);
+  }
+  .preview-frame iframe{ width:100%; height:520px; border:0; border-radius:12px; background:#F1F5F8; }
+  @media (max-width:640px){ .preview-frame iframe{ height:360px; } }
+
+  .respect{
+    max-width:640px; margin:6px auto 46px; text-align:center; font-size:13px; color:var(--ink-soft);
+    line-height:1.9; font-weight:700; background:var(--white); border-radius:var(--radius-md);
+    padding:18px 22px; box-shadow:var(--shadow-soft);
+  }
+
+  footer{ margin-top:20px; padding:30px 20px 40px; text-align:center; }
+  .badges{ display:flex; flex-wrap:wrap; justify-content:center; gap:22px; margin-bottom:16px; }
+  .badge{ display:flex; align-items:center; gap:7px; color:var(--ink-soft); font-size:12.5px; font-weight:800; }
+  .badge b{ color:var(--ink); }
+  .foot-bottom{ text-align:center; color:var(--ink-soft); font-size:12px; font-weight:700; display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .foot-logo{ font-weight:800; font-size:14px; color:var(--ink); }
+  .foot-logo span{ color:var(--ink-soft); font-weight:600; }
+
+  ::selection{ background:#FFE6BF; }
+  @media (prefers-reduced-motion: reduce){ .view, .card, .action-btn{ transition:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lang-toggle">
+    <button id="btn-si" class="active" onclick="setLang('si')">සිංහල</button>
+    <button id="btn-ta" onclick="setLang('ta')">தமிழ்</button>
+    <button id="btn-en" onclick="setLang('en')">English</button>
+  </div>
+</div>
+
+<header class="top">
+  <div class="eyebrow">🏆 Edu Pab — Archive</div>
+  <h1 id="heroTitle">ශිෂ්‍යත්ව විභාග ප්‍රශ්න පත්‍ර<br>සංරක්ෂණාගාරය</h1>
+  <p class="sub" id="subText">ඔබගේ විභාග මාධ්‍යය තෝරන්න</p>
+  <div class="omr-band">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+</header>
+
+<div class="stage">
+  <div id="app" class="view settled"></div>
+</div>
+
+<footer>
+  <div class="badges">
+    <div class="badge">🛡️ Security by <b>Cloudflare</b></div>
+    <div class="badge">☁️ Storage by <b>Google Drive</b></div>
+    <div class="badge">🎨 Design by <b>Known Studio</b></div>
+  </div>
+  <div class="foot-bottom">
+    <div class="foot-logo">Known Studio</div>
+    <div>© 2026 Known Studio. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+/* ---------------- Raw file data (language-neutral) ---------------- */
+const RAW = {
+  si: {
+    yearRange:[2014,2026],
+    years:[
+      { year:2014, kind:'separate', files:[{kind:'paper',id:'1SgwGtZzjVsd1HYNmrF1rEeBhcHsUx6Ju'},{kind:'answer',id:'1tSMjf6TwxEaSD60PipCQVzpR_VoutvGP'}] },
+      { year:2015, kind:'separate', files:[{kind:'paper',id:'1NdRgU-WoyH-LuSR99liNMIKK7_mA8gw4'},{kind:'answer',id:'1bQ3BDv0MQamGQ1bVUdW5sc0tx5unvd4g'}] },
+      { year:2016, kind:'combined', files:[{kind:'combined',id:'1wBMSCVpH13ZwtHvYOsva6kiS_GO29PZ8'}] },
+      { year:2017, kind:'separate', files:[{kind:'paper',id:'13PKURUeWM0wjc5tJZFk9dZg1LXhuFkih'},{kind:'answer',id:'1s5QTcx3tmscctkuth3GdqeX33OXh1Bk3'}] },
+      { year:2018, kind:'separate', files:[{kind:'paper',id:'1NGd2hjPyQi6k3_2hIu9vZjJEf_7S4S_T'},{kind:'answer',id:'1USyn5tvqjO9mpmgXqJiTGPR5kAlP7UJk'}] },
+      { year:2019, kind:'twopart', files:[{kind:'paper1',id:'1qFfPYXapoUpTkxRMo6Qo5O_-coVrzxEf'},{kind:'paper2',id:'16DG-sithX4LaxghvxgA0aNf-QUUKdAVK'}] },
+      { year:2020, kind:'combined', files:[{kind:'combined',id:'1b3kIeY3PEoRRdr_4HBBR3PgI94I8kWo2'}] },
+      { year:2021, kind:'separate', files:[{kind:'paper',id:'1hzEyz_H0xcn-IbgHN3-A0R6vgdLo54dp'},{kind:'answer',id:'1bRdX20ZuzPlC93qebUxSEWhH2P1DH56J'}] },
+      { year:2022, kind:'separate', files:[{kind:'paper',id:'15-9TyNEffjBuACBPUcowgqsa58jzz5T5'},{kind:'answer',id:'1Gh8WmSslCFdCOFEKGM5OV9m66rjpptLr'}] },
+      { year:2023, kind:'separate', files:[{kind:'paper',id:'1fhH5fY5y_bAYh75O3yMaRDIHO8MYAeT4'},{kind:'answer',id:'1lXAELfKdahBDQRbp_XJQ5ymI_NBXreDV'}] },
+      { year:2024, kind:'separate', files:[{kind:'paper',id:'1vx1P9lwvlAGiYPeoLBmFMoMlSy1pe6Vj'},{kind:'answer',id:'1bzLtz7V0VPqMDYKhGY5Bmw5uOgoB09qu'}] },
+      { year:2025, kind:'separate', files:[{kind:'paper',id:'1GVjrE9MkZcoFPa43RrES6TBgB2KIA7g2'},{kind:'answer',id:'1lvoz2XNZd-_B94JsNPY84a_ib4KANx0_'}] },
+      { year:2026, kind:'combined', files:[{kind:'combined',id:'1u0dKyJzlyJrJYPYz8b02w0EqInNTbFrQ'}] },
+    ]
+  },
+  ta: {
+    yearRange:[2018,2025],
+    years:[
+      { year:2018, kind:'combined', files:[{kind:'combined',id:'1_Upn-t8xdu2aoVi4UOkZwa8jFoktIEzj'}] },
+      { year:2019, kind:'separate', files:[{kind:'paper',id:'1RvTSzKZgSWH-A5Pa-TO4Ce_MFG3wUwWl'},{kind:'answer',id:'1QtEHhXXGpJrFBLZW5BlHyMldpW5Fqfc4'}] },
+      { year:2020, kind:'combined', files:[{kind:'combined',id:'19OXvvGrlFiqVJt5keHd4fUOoosNO3tl9'}] },
+      { year:2021, kind:'combined', files:[{kind:'combined',id:'1dcUbgYoPvwh1nhqLyEhg8A-RjyUodagE'}] },
+      { year:2022, kind:'separate', files:[{kind:'paper',id:'1Sa28itZaUZhPfsDriFhS7qjzCfDStLE9'},{kind:'answer',id:'19lQ-E_VY5nj4-9ZzhJVkedgYPrTI5aZk'}] },
+      { year:2023, kind:'separate', files:[{kind:'paper',id:'1QYSGlXZQgSdX0wKfFoWZLuwWJkosAY8p'},{kind:'answer',id:'1kksYyMcE-RFhdz9Jio2DKk9MzLO9LnC7'}] },
+      { year:2024, kind:'separate', files:[{kind:'paper',id:'1AD_vCFwieg610DKY36HK0ERa_O-kd1St'},{kind:'answer',id:'1zpvgpY6JlY2Vq_QZxMUAjfsCSHjtQxbx'}] },
+      { year:2025, kind:'separate', files:[{kind:'paper',id:'100qc5TIiCdOvK3RPjN33K_xtJogbgzhb'},{kind:'answer',id:'1t3icmJGzL_Do-cNXhxzTEPq0WHQrbZMJ'}] },
+    ]
+  }
+};
+
+/* ---------------- UI text dictionary ---------------- */
+const TXT = {
+  si:{
+    heroTitle:'ශිෂ්‍යත්ව විභාග ප්‍රශ්න පත්‍ර<br>සංරක්ෂණාගාරය',
+    selectorSub:'ඔබගේ විභාග මාධ්‍යය තෝරන්න',
+    kicker:'🎈 ඔබගේ විභාග මාධ්‍යය තෝරන්න',
+    selectorTitle:'විභාග මාධ්‍යය තෝරන්න',
+    mediumName:{ si:'සිංහල මාධ්‍යය', ta:'දෙමළ මාධ්‍යය' },
+    mediumWord:'මාධ්‍යය',
+    changeMedium:'← මාධ්‍යය මාරු කරන්න',
+    backToYears:'← වර්ෂ ලැයිස්තුවට',
+    subFor:(s,e)=>`${s} සිට ${e} දක්වා ශිෂ්‍යත්ව විභාග ප්‍රශ්න පත්‍ර හා පිළිතුරු පත්‍ර, බාගත නොකර මෙතැනින්ම පෙරදසුන් කර, අවශ්‍ය විටෙක බාගත කරගන්න.`,
+    tagFor:{ combined:'ප්‍රශ්න + පිළිතුරු', twopart:'i / ii පත්‍ර', separate:'ප්‍රශ්න • පිළිතුරු' },
+    fileLabel:{ paper:'ප්‍රශ්න පත්‍රය', answer:'පිළිතුරු පත්‍රය', combined:'ප්‍රශ්න පත්‍රය සහ පිළිතුරු පත්‍රය', paper1:'පත්‍රය I (ප්‍රශ්න + පිළිතුරු)', paper2:'පත්‍රය II (ප්‍රශ්න + පිළිතුරු)' },
+    combinedDesc:'🎉 ප්‍රශ්න පත්‍රය සහ පිළිතුරු පත්‍රය එකම ලේඛනයේ ඇතුළත් වේ',
+    separateDesc:'📚 ප්‍රශ්න පත්‍රය සහ පිළිතුරු පත්‍රය වෙන වෙනම ලබා දී ඇත',
+    download:'බාගන්න', previewCap:'පෙරදසුන',
+    respect:'🌟 සියලුම ප්‍රශ්න පත්‍ර හා පිළිතුරු පත්‍ර මුල් ආකෘතියටම, කිසිදු වෙනසක් නොකර ඉදිරිපත් කර ඇත.'
+  },
+  ta:{
+    heroTitle:'5 ஆம் தர புலமைப்பரிசில் வினாத்தாள்<br>காப்பகம்',
+    selectorSub:'உங்கள் தேர்வு ஊடகத்தைத் தேர்ந்தெடுக்கவும்',
+    kicker:'🎈 உங்கள் தேர்வு ஊடகத்தைத் தேர்ந்தெடுக்கவும்',
+    selectorTitle:'தேர்வு ஊடகத்தைத் தேர்ந்தெடுக்கவும்',
+    mediumName:{ si:'சிங்கள மொழி', ta:'தமிழ் மொழி' },
+    mediumWord:'மொழி',
+    changeMedium:'← மொழி ஊடகத்தை மாற்று',
+    backToYears:'← ஆண்டுகளுக்குத் திரும்பு',
+    subFor:(s,e)=>`${s} முதல் ${e} வரையிலான 5 ஆம் தர புலமைப்பரிசில் பரீட்சை வினாத்தாள்கள் மற்றும் விடைத்தாள்கள், பதிவிறக்கம் செய்யாமல் இங்கேயே முன்னோட்டமிட்டு, தேவைப்படும் போது மட்டும் பதிவிறக்கவும்.`,
+    tagFor:{ combined:'வினா + விடை', twopart:'Paper I / II', separate:'வினா • விடை' },
+    fileLabel:{ paper:'வினாத்தாள்', answer:'விடைத்தாள்', combined:'வினாத்தாள் மற்றும் விடைத்தாள்', paper1:'தாள் I (வினா + விடை)', paper2:'தாள் II (வினா + விடை)' },
+    combinedDesc:'🎉 வினாத்தாளும் விடைத்தாளும் ஒரே ஆவணத்தில் உள்ளன',
+    separateDesc:'📚 வினாத்தாளும் விடைத்தாளும் தனித்தனியாக வழங்கப்பட்டுள்ளன',
+    download:'பதிவிறக்கு', previewCap:'முன்னோட்டம்',
+    respect:'🌟 அனைத்து வினாத்தாள்களும் விடைத்தாள்களும் அவற்றின் அசல் வடிவத்திலேயே, எந்த மாற்றமும் இன்றி வழங்கப்பட்டுள்ளன.'
+  },
+  en:{
+    heroTitle:'Grade 5 Scholarship Exam<br>Paper Archive',
+    selectorSub:'Choose your exam medium to get started',
+    kicker:'🎈 Choose your exam medium',
+    selectorTitle:'Choose your exam medium',
+    mediumName:{ si:'Sinhala Medium', ta:'Tamil Medium' },
+    mediumWord:'Medium',
+    changeMedium:'← Change medium',
+    backToYears:'← Back to years',
+    subFor:(s,e)=>`Grade 5 Scholarship exam papers and answer sheets from ${s} to ${e} — preview them right here without downloading, and download only when you need to.`,
+    tagFor:{ combined:'Question + Answer', twopart:'Paper I / II', separate:'Question • Answer' },
+    fileLabel:{ paper:'Question Paper', answer:'Answer Sheet', combined:'Question Paper & Answer Sheet', paper1:'Paper I (Question + Answer)', paper2:'Paper II (Question + Answer)' },
+    combinedDesc:'🎉 Question paper and answer sheet are included in one document',
+    separateDesc:'📚 Question paper and answer sheet, provided separately',
+    download:'Download', previewCap:'Preview',
+    respect:'🌟 All papers and answer sheets are presented exactly as originally published, without any alteration to their format or content.'
+  }
+};
+
+const MEDIUM_STYLE = {
+  si:{ emoji:'📘', mcolor:'var(--sky)', msoft:'#E7F6FF', mdeep:'var(--sky-deep)' },
+  ta:{ emoji:'📗', mcolor:'var(--coral)', msoft:'#FFEDE9', mdeep:'var(--coral-deep)' }
+};
+
+let lang = 'si';
+let currentMedium = null;
+const app = document.getElementById('app');
+const subText = document.getElementById('subText');
+const heroTitle = document.getElementById('heroTitle');
+
+const driveDownload = id => `https://drive.google.com/uc?export=download&id=${id}`;
+const drivePreview  = id => `https://drive.google.com/file/d/${id}/preview`;
+
+function setLang(l){
+  lang = l;
+  document.getElementById('btn-si').classList.toggle('active', l==='si');
+  document.getElementById('btn-ta').classList.toggle('active', l==='ta');
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  heroTitle.innerHTML = TXT[lang].heroTitle;
+  if(currentMedium===null) renderSelector();
+  else if(app.querySelector('.detail-head')) render(); // stays on whatever view currently is
+  else renderList();
+}
+
+function render(){
+  if(currentMedium===null) renderSelector();
+  else if(app.dataset.view==='detail') renderDetail(Number(app.dataset.year));
+  else renderList();
+}
+
+function attachTilt(cards){
+  cards.forEach(card=>{
+    card.addEventListener('mousemove', e=>{
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left)/r.width - .5;
+      const py = (e.clientY - r.top)/r.height - .5;
+      card.style.transform = `rotateY(${px*14}deg) rotateX(${-py*14}deg) translateZ(6px)`;
+    });
+    card.addEventListener('mouseleave', ()=> card.style.transform = '');
+  });
+}
+
+function transition(renderFn, dir){
+  app.classList.remove('settled');
+  app.classList.add(dir==='fwd' ? 'leaving-fwd' : 'leaving-back');
+  setTimeout(()=>{
+    renderFn();
+    app.classList.remove('leaving-fwd','leaving-back');
+    app.classList.add(dir==='fwd' ? 'entering-fwd' : 'entering-back');
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=>{
+        app.classList.remove('entering-fwd','entering-back');
+        app.classList.add('settled');
+      });
+    });
+  }, 280);
+}
+
+/* ---------- SELECTOR VIEW ---------- */
+function renderSelector(){
+  app.dataset.view = 'selector';
+  const t = TXT[lang];
+  subText.textContent = t.selectorSub;
+  app.innerHTML = `
+    <div class="selector-head">
+      <div class="kicker">${t.kicker}</div>
+      <div class="title-main">${t.selectorTitle}</div>
+    </div>
+    <div class="grid medium-grid">
+      ${['si','ta'].map(m=>{
+        const ms = MEDIUM_STYLE[m];
+        const range = RAW[m].yearRange.join('–');
+        return `
+      <div class="card medium-card" data-medium="${m}" style="--mcolor:${ms.mcolor}; --msoft:${ms.msoft}; --mdeep:${ms.mdeep}">
+        <div class="medium-emoji">${ms.emoji}</div>
+        <span class="medium-text">
+          <span class="num">${t.mediumName[m]}</span>
+          <span class="tag">${t.mediumName[m]} · ${range}</span>
+        </span>
+        <span class="corner">→</span>
+      </div>`;
+      }).join('')}
+    </div>
+  `;
+  const cards = app.querySelectorAll('.medium-card');
+  attachTilt(cards);
+  cards.forEach(card=>{
+    card.addEventListener('click', ()=>{
+      currentMedium = card.dataset.medium;
+      transition(renderList, 'fwd');
+    });
+  });
+}
+
+/* ---------- LIST VIEW ---------- */
+function renderList(){
+  app.dataset.view = 'list';
+  const t = TXT[lang];
+  const raw = RAW[currentMedium];
+  subText.textContent = t.subFor(raw.yearRange[0], raw.yearRange[1]);
+  const cards = raw.years.map(y => `
+    <div class="card ${y.kind==='combined'?'combined':''}" data-year="${y.year}">
+      <span class="corner">${y.kind==='combined' ? '✓' : y.files.length}</span>
+      <span class="num">${y.year}</span>
+      <span class="tag">${t.tagFor[y.kind]}</span>
+    </div>`).join('');
+  app.innerHTML = `
+    <div class="top-row">
+      <button class="back-btn" id="changeMediumBtn">${t.changeMedium}</button>
+    </div>
+    <div class="grid">${cards}</div>`;
+
+  document.getElementById('changeMediumBtn').addEventListener('click', ()=>{
+    currentMedium = null;
+    transition(renderSelector, 'back');
+  });
+
+  const yearCards = app.querySelectorAll('.card[data-year]');
+  attachTilt(yearCards);
+  yearCards.forEach(card=>{
+    card.addEventListener('click', ()=> transition(()=> renderDetail(Number(card.dataset.year)), 'fwd'));
+  });
+}
+
+/* ---------- DETAIL VIEW ---------- */
+function renderDetail(year){
+  app.dataset.view = 'detail';
+  app.dataset.year = year;
+  const t = TXT[lang];
+  const raw = RAW[currentMedium];
+  const y = raw.years.find(x=>x.year===year);
+  const actions = y.files.map((f,i) => `
+    <a class="action-btn" href="${driveDownload(f.id)}" target="_blank" rel="noopener">
+      <span class="emoji">${i%2===0 ? '📄' : '✅'}</span>
+      <span>
+        <span class="btn-label-en">${t.download}</span>
+        <span class="btn-label-si">${t.fileLabel[f.kind]}</span>
+      </span>
+    </a>`).join('');
+
+  const previews = y.files.map(f => `
+    <div class="preview-block">
+      <div class="cap">${t.fileLabel[f.kind]} — ${t.previewCap}</div>
+      <div class="preview-frame">
+        <iframe src="${drivePreview(f.id)}" loading="lazy" allow="autoplay"></iframe>
+      </div>
+    </div>`).join('');
+
+  app.innerHTML = `
+    <button class="back-btn" id="backBtn">${t.backToYears}</button>
+    <div class="detail-head">
+      <div class="num">${year}</div>
+      <div class="desc">${y.kind==='combined' ? t.combinedDesc : t.separateDesc}</div>
+    </div>
+    <div class="actions">${actions}</div>
+    <div class="previews">${previews}</div>
+    <p class="respect">${t.respect}</p>
+  `;
+  document.getElementById('backBtn').addEventListener('click', ()=>{ transition(renderList, 'back'); });
+}
+
+renderSelector();
+</script>
+</body>
+</html>
