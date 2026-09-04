@@ -200,6 +200,60 @@
   @media (max-width:860px){ .strip-grid{ grid-template-columns:1fr 1fr; } }
   @media (max-width:520px){ .strip-grid{ grid-template-columns:1fr; } }
 
+  /* desktop-only: 3D stacked / cascading cards */
+  @media (min-width:861px){
+    .strip-grid{
+      display:flex; flex-direction:column; align-items:center;
+      perspective:1800px; padding:6px 0 40px;
+    }
+    .strip-card{
+      width:100%; max-width:620px; transform-origin:top center;
+      box-shadow:0 22px 40px rgba(35,61,77,.18);
+      transition:transform .35s ease, box-shadow .35s ease, z-index 0s;
+    }
+    .strip-card:nth-child(1){ z-index:4; transform:rotateX(0deg) scale(1); margin-top:0; }
+    .strip-card:nth-child(2){ z-index:3; transform:rotateX(5deg) scale(.96); margin-top:-48px; }
+    .strip-card:nth-child(3){ z-index:2; transform:rotateX(5deg) scale(.93); margin-top:-48px; }
+    .strip-card:nth-child(4){ z-index:1; transform:rotateX(5deg) scale(.90); margin-top:-48px; }
+    .strip-card:hover{
+      transform:rotateX(0deg) scale(1.03) translateY(-16px) !important;
+      z-index:10 !important; box-shadow:0 30px 56px rgba(35,61,77,.28);
+    }
+  }
+
+  /* ---------- Exam intro (below hero) ---------- */
+  .exam-intro{ position:relative; z-index:1; max-width:820px; margin:0 auto; padding:8px 20px 6px; text-align:center; }
+  .exam-intro h2{ font-size:1.5rem; margin:0 0 12px; color:var(--ink); }
+  .exam-intro p{ font-size:14.5px; line-height:1.85; color:var(--ink-soft); font-weight:600; margin:0; }
+
+  /* ---------- Feedback / send-a-message section ---------- */
+  .feedback{ position:relative; z-index:1; max-width:640px; margin:14px auto 30px; padding:0 20px; }
+  .feedback-inner{
+    background:var(--white); border-radius:var(--radius-lg); padding:26px 22px;
+    box-shadow:var(--shadow-soft); text-align:center;
+  }
+  .feedback-inner h3{ font-size:1.25rem; margin:0 0 8px; color:var(--ink); }
+  .feedback-inner .sub{ font-size:13px; color:var(--ink-soft); font-weight:700; margin:0 0 18px; line-height:1.6; }
+  .feedback-form{ display:flex; flex-direction:column; gap:12px; text-align:left; }
+  .feedback-form input, .feedback-form textarea{
+    width:100%; border:1.5px solid #E7ECEF; border-radius:var(--radius-md);
+    padding:12px 14px; font-family:inherit; font-size:14px; color:var(--ink);
+    background:var(--cream); transition:border-color .2s ease;
+  }
+  .feedback-form input:focus, .feedback-form textarea:focus{ outline:none; border-color:var(--sky); background:var(--white); }
+  .feedback-form textarea{ min-height:120px; resize:vertical; }
+  .feedback-submit{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    background:var(--mint); color:var(--white); border:none; border-radius:999px;
+    padding:13px 20px; font-weight:800; font-size:14.5px; cursor:pointer;
+    box-shadow:var(--shadow-soft); transition:transform .2s ease, background .2s ease;
+  }
+  .feedback-submit:hover{ transform:translateY(-2px); background:var(--mint-deep); }
+  .feedback-submit:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+  .feedback-status{ margin:12px 0 0; font-size:13px; font-weight:800; text-align:center; min-height:16px; }
+  .feedback-status.ok{ color:var(--mint-deep); }
+  .feedback-status.err{ color:var(--coral-deep); }
+
   /* ---------- Footer (shared across the site) ---------- */
   /* ---------- Parent awareness note ---------- */
   .parent-note{ position:relative; z-index:1; max-width:1040px; margin:0 auto 26px; padding:0 20px; }
@@ -384,6 +438,20 @@
   </div>
 </header>
 
+<!-- ================= EXAM INTRO ================= -->
+<section class="exam-intro">
+  <h2>
+    <span data-lang="si">5 ශ්‍රේණිය ශිෂ්‍යත්ව විභාගය යනු කුමක්ද?</span>
+    <span data-lang="ta">5 ஆம் தர புலமைப்பரிசில் பரீட்சை என்றால் என்ன?</span>
+    <span data-lang="en">What is the Grade 5 Scholarship Examination?</span>
+  </h2>
+  <p>
+    <span data-lang="si">ශ්‍රී ලංකා විභාග දෙපාර්තමේන්තුව මගින් වාර්ෂිකව පවත්වනු ලබන මෙම ජාතික මට්ටමේ විභාගය, ප්‍රාථමික අධ්‍යාපනයෙන් ද්විතීයික අධ්‍යාපනයට පිවිසෙන සිසුන් සඳහා ශිෂ්‍යත්ව මුදල් හා පාසල් මාරු කිරීම් සඳහා අවස්ථාව සලසයි. විභාගය ප්‍රශ්න පත්‍ර දෙකකින් සමන්විත වේ — පළමු පත්‍රය පොදු දැනීම, පරිසරය හා භාෂාව ආශ්‍රිතව ද, දෙවන පත්‍රය ගණිතය ආශ්‍රිතව ද සකසා ඇත. හොඳම ප්‍රතිඵල ලබන සිසුන්ට රජයේ ශිෂ්‍යත්ව මුදල් හා ප්‍රසිද්ධ පාසල්වලට ඇතුළත් වීමේ අවස්ථාව හිමි වේ.</span>
+    <span data-lang="ta">இலங்கை பரீட்சைத் திணைக்களத்தால் ஆண்டுதோறும் நடத்தப்படும் இந்தத் தேசிய மட்டப் பரீட்சை, ஆரம்பக் கல்வியிலிருந்து இடைநிலைக் கல்விக்குச் செல்லும் மாணவர்களுக்குப் புலமைப்பரிசில் மற்றும் பாடசாலை மாற்றத்திற்கான வாய்ப்பை வழங்குகிறது. இது இரு வினாத்தாள்களைக் கொண்டுள்ளது — முதலாவது பொது அறிவு, சூழல் மற்றும் மொழி தொடர்பானது; இரண்டாவது கணிதம் தொடர்பானது. சிறந்த முடிவுகளைப் பெறும் மாணவர்களுக்கு அரசாங்க புலமைப்பரிசில் தொகையும், புகழ்பெற்ற பாடசாலைகளில் சேரும் வாய்ப்பும் கிடைக்கிறது.</span>
+    <span data-lang="en">Held annually by the Department of Examinations, Sri Lanka, this national-level exam gives students moving from primary to secondary school the chance to earn a scholarship and a place in a more sought-after school. It's made up of two papers — the first covering general knowledge, environment and language, and the second covering mathematics. Students with the strongest results are awarded scholarship funds and priority school placements.</span>
+  </p>
+</section>
+
 <!-- ================= STRIP: what's here ================= -->
 <section class="strip">
   <div class="strip-grid">
@@ -438,6 +506,35 @@
         5 වසර ශිෂ්‍යත්වය හරහා දරුවන්ගේ හිස මතට ඇද වැටෙන ධනවාදයේ අර්බුදය ↗
       </a>
     </div>
+  </div>
+</section>
+
+<!-- ================= FEEDBACK / SEND A MESSAGE ================= -->
+<section class="feedback">
+  <div class="feedback-inner">
+    <h3>
+      <span data-lang="si">🗨️ ඔබේ අදහසක් තියෙනවද?</span>
+      <span data-lang="ta">🗨️ உங்கள் கருத்தை பகிருங்கள்</span>
+      <span data-lang="en">🗨️ Got feedback for us?</span>
+    </h3>
+    <p class="sub">
+      <span data-lang="si">ගැටලුවක්, යෝජනාවක් හෝ දෝෂයක් තියෙනවා නම් පහත පුරවන්න. ඔබේ පණිවිඩය කෙළින්ම අපිට ලැබෙනවා.</span>
+      <span data-lang="ta">ஒரு சிக்கல், யோசனை அல்லது பிழை இருந்தால் கீழே பூர்த்தி செய்யவும். உங்கள் செய்தி நேரடியாக எங்களுக்கு வரும்.</span>
+      <span data-lang="en">Found an issue or have a suggestion? Fill this in — your message comes straight to us.</span>
+    </p>
+    <form class="feedback-form" id="feedbackForm">
+      <input type="text" id="fbName" name="name" required
+        placeholder="ඔබේ නම">
+      <textarea id="fbMessage" name="message" required
+        placeholder="ඔබේ අදහස / ප්‍රශ්නය / යෝජනාව..."></textarea>
+      <button type="submit" class="feedback-submit" id="fbSubmitBtn">
+        <span>📩</span>
+        <span data-lang="si" class="inline">එවන්න</span>
+        <span data-lang="ta" class="inline">அனுப்பு</span>
+        <span data-lang="en" class="inline">Send</span>
+      </button>
+    </form>
+    <p class="feedback-status" id="fbStatus"></p>
   </div>
 </section>
 
@@ -520,6 +617,12 @@ function typewrite(text){
   }, 32);
 }
 
+const FB_PLACEHOLDERS = {
+  si: { name:"ඔබේ නම", message:"ඔබේ අදහස / ප්‍රශ්නය / යෝජනාව..." },
+  ta: { name:"உங்கள் பெயர்", message:"உங்கள் கருத்து / கேள்வி / யோசனை..." },
+  en: { name:"Your name", message:"Your feedback / question / suggestion..." }
+};
+
 function setLang(l){
   lang = l;
   document.body.className = 'lang-' + l;
@@ -528,6 +631,10 @@ function setLang(l){
   document.getElementById('btn-ta').classList.toggle('active', l==='ta');
   document.getElementById('btn-en').classList.toggle('active', l==='en');
   typewrite(HERO_LINES[l]);
+  const fbName = document.getElementById('fbName');
+  const fbMessage = document.getElementById('fbMessage');
+  if(fbName) fbName.placeholder = FB_PLACEHOLDERS[l].name;
+  if(fbMessage) fbMessage.placeholder = FB_PLACEHOLDERS[l].message;
 }
 
 /* mobile menu */
@@ -586,6 +693,52 @@ setTimeout(()=> typewrite(HERO_LINES[lang]), 550);
     if(e.touches && e.touches[0]) handleX(e.touches[0].clientX);
   }, { passive:true });
 })();
+
+/* ---------------- feedback form: sends to the shared Telegram bot ---------------- */
+const FEEDBACK_ENDPOINT = "https://ganithahapannu.netlify.app/.netlify/functions/contact-message";
+const FB_STATUS_TEXT = {
+  sending: { si:"යවමින්...", ta:"அனுப்புகிறது...", en:"Sending..." },
+  ok:      { si:"✅ ස්තූතියි! ඔබේ පණිවිඩය ලැබුණා.", ta:"✅ நன்றி! உங்கள் செய்தி பெறப்பட்டது.", en:"✅ Thanks! Your message was received." },
+  err:     { si:"⚠️ යැවීමට නොහැකි විය. ටිකකින් උත්සාහ කරන්න.", ta:"⚠️ அனுப்ப முடியவில்லை. சிறிது நேரம் கழித்து முயற்சிக்கவும்.", en:"⚠️ Couldn't send. Please try again shortly." }
+};
+
+const feedbackForm = document.getElementById('feedbackForm');
+if(feedbackForm){
+  feedbackForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const btn = document.getElementById('fbSubmitBtn');
+    const status = document.getElementById('fbStatus');
+    const name = document.getElementById('fbName').value.trim();
+    const message = document.getElementById('fbMessage').value.trim();
+    if(!name || !message) return;
+
+    btn.disabled = true;
+    status.className = 'feedback-status';
+    status.textContent = FB_STATUS_TEXT.sending[lang];
+
+    try{
+      const res = await fetch(FEEDBACK_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          message,
+          time: new Date().toISOString(),
+          source: "Grade 5 Scholarship page (Edu Pab)"
+        })
+      });
+      if(!res.ok) throw new Error("bad status");
+      status.className = 'feedback-status ok';
+      status.textContent = FB_STATUS_TEXT.ok[lang];
+      feedbackForm.reset();
+    }catch(err){
+      status.className = 'feedback-status err';
+      status.textContent = FB_STATUS_TEXT.err[lang];
+    }finally{
+      btn.disabled = false;
+    }
+  });
+}
 </script>
 </body>
 </html>
