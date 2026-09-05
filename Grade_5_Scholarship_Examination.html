@@ -296,6 +296,7 @@
 
   ::selection{ background:#FFE6BF; }
 </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="lang-si">
 
@@ -527,6 +528,7 @@
         placeholder="ඔබේ නම">
       <textarea id="fbMessage" name="message" required
         placeholder="ඔබේ අදහස / ප්‍රශ්නය / යෝජනාව..."></textarea>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAEpV3Iphf2vO15Vq" data-callback="onFbTurnstileToken"></div>
       <button type="submit" class="feedback-submit" id="fbSubmitBtn">
         <span>📩</span>
         <span data-lang="si" class="inline">එවන්න</span>
@@ -703,6 +705,9 @@ const FB_STATUS_TEXT = {
 };
 
 const feedbackForm = document.getElementById('feedbackForm');
+let fbTurnstileToken = '';
+function onFbTurnstileToken(token){ fbTurnstileToken = token; }
+
 if(feedbackForm){
   feedbackForm.addEventListener('submit', async (e)=>{
     e.preventDefault();
@@ -711,6 +716,12 @@ if(feedbackForm){
     const name = document.getElementById('fbName').value.trim();
     const message = document.getElementById('fbMessage').value.trim();
     if(!name || !message) return;
+
+    if(!fbTurnstileToken){
+      status.className = 'feedback-status err';
+      status.textContent = { si:"⚠️ කරුණාකර 'මම මිනිසෙක්' verification එක සම්පූර්ණ කරන්න.", ta:"⚠️ சரிபார்ப்பை முடிக்கவும்.", en:"⚠️ Please complete the verification check." }[lang];
+      return;
+    }
 
     btn.disabled = true;
     status.className = 'feedback-status';
@@ -724,13 +735,17 @@ if(feedbackForm){
           name,
           message,
           time: new Date().toISOString(),
-          source: "Grade 5 Scholarship page (Edu Pab)"
+          source: "Grade 5 Scholarship page (Edu Pab)",
+          site: "edupab",
+          turnstileToken: fbTurnstileToken
         })
       });
       if(!res.ok) throw new Error("bad status");
       status.className = 'feedback-status ok';
       status.textContent = FB_STATUS_TEXT.ok[lang];
       feedbackForm.reset();
+      if(window.turnstile) window.turnstile.reset();
+      fbTurnstileToken = '';
     }catch(err){
       status.className = 'feedback-status err';
       status.textContent = FB_STATUS_TEXT.err[lang];
