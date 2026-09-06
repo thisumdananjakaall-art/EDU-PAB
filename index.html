@@ -2,167 +2,764 @@
 <html lang="si">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Terms of Service | Ganitha Hapannu (Edu Pab)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDU PAB Grade 5 Scholarship Examination</title>
+<meta name="description" content="Grade 5 Scholarship exam past papers, model papers, short notes and the Ganitha Hapannu maths game — all free, in Sinhala, Tamil and English.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23FF6F59'/%3E%3Cpath d='M50 22 L86 40 L50 58 L14 40 Z' fill='%23FFFFFF'/%3E%3Cpath d='M28 47 V66 C28 66 38 76 50 76 C62 76 72 66 72 66 V47 L50 58 Z' fill='%23FFD23F'/%3E%3Ccircle cx='84' cy='40' r='4' fill='%23FFFFFF'/%3E%3Crect x='83' y='40' width='2' height='22' fill='%23FFFFFF'/%3E%3C/svg%3E" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@600;700;800&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg-deep:#0B4F4A; --sand:#FBF3E1; --sand2:#F3E6C8; --mango:#FFB100;
-    --ink:#163832; --ink-soft:#3E6660; --white:#FFFFFF;
+    --sky:#3DB8F5; --sky-deep:#1E93D2;
+    --sun:#FFD23F; --sun-deep:#C79A00;
+    --coral:#FF6F59; --coral-deep:#D94F3B;
+    --mint:#3ED9A3; --mint-deep:#1FAE80;
+    --grape:#8B6FE0; --grape-deep:#6B4FC2;
+    --cream:#FFF9EC; --ink:#233D4D; --ink-soft:#5B7183; --white:#FFFFFF;
+    --radius-lg:28px; --radius-md:18px;
+    --shadow-soft:0 10px 24px rgba(35,61,77,0.10);
+    --shadow-pop:0 16px 34px rgba(35,61,77,0.16);
   }
   *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
   body{
-    margin:0; font-family:'Noto Sans Sinhala',sans-serif;
-    background:var(--bg-deep); color:var(--ink); min-height:100vh;
+    background:var(--cream);
+    background-image:
+      radial-gradient(circle at 8% 10%, rgba(61,184,245,0.16) 0, transparent 40%),
+      radial-gradient(circle at 92% 16%, rgba(255,210,63,0.22) 0, transparent 38%),
+      radial-gradient(circle at 14% 92%, rgba(62,217,163,0.18) 0, transparent 42%),
+      radial-gradient(circle at 90% 90%, rgba(139,111,224,0.14) 0, transparent 40%);
+    color:var(--ink);
+    font-family:'Nunito','Noto Sans Sinhala','Noto Sans Tamil',sans-serif;
+    min-height:100vh; overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
   }
-  header{ padding:64px 20px 20px; text-align:center; position:relative; }
-  header h1{
-    font-family:'Baloo Tamma 2',sans-serif; color:var(--mango);
-    font-size:1.5rem; margin:0 0 6px;
-  }
-  header p{ color:var(--sand); opacity:0.85; margin:0; font-size:0.85rem; }
+  h1,h2,h3,.display{ font-family:'Baloo 2','Noto Sans Sinhala','Noto Sans Tamil',sans-serif; }
+  a{ color:inherit; }
+  button{ font-family:inherit; }
 
-  .lang-switch{
-    position:absolute; top:16px; right:16px; z-index:6;
-    display:flex; background:rgba(0,0,0,0.28); border-radius:999px; padding:4px;
-    gap:2px;
-  }
-  .lang-switch button{
-    background:transparent; color:rgba(251,243,225,0.65); border:none; cursor:pointer;
-    font-family:'Baloo Tamma 2',sans-serif; font-weight:700; font-size:0.78rem;
-    padding:6px 14px; border-radius:999px;
-  }
-  .lang-switch button.active{background:var(--mango); color:var(--ink);}
+  /* language visibility: default hidden, shown only for the active language */
+  [data-lang]{ display:none; }
+  .lang-si [data-lang="si"], .lang-ta [data-lang="ta"], .lang-en [data-lang="en"]{ display:revert; }
+  .lang-si [data-lang="si"].inline, .lang-ta [data-lang="ta"].inline, .lang-en [data-lang="en"].inline{ display:inline; }
+  .lang-si [data-lang="si"].flex, .lang-ta [data-lang="ta"].flex, .lang-en [data-lang="en"].flex{ display:flex; }
 
-  main{ max-width:640px; margin:0 auto; padding:0 20px 60px; }
-  .card{
-    background:var(--sand); border-radius:20px; padding:26px 24px;
-    box-shadow:0 10px 0 rgba(0,0,0,0.18);
+  /* ---------- floating decorative blobs (stand-in for the video background) ---------- */
+  .bg-stage{ position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+  .blob{ position:absolute; border-radius:50%; filter:blur(60px); opacity:.5; animation:drift 22s ease-in-out infinite; }
+  .blob.b1{ width:360px; height:360px; left:-80px; top:-60px; background:var(--sky); animation-delay:0s; }
+  .blob.b2{ width:300px; height:300px; right:-60px; top:10%; background:var(--sun); animation-delay:-6s; }
+  .blob.b3{ width:340px; height:340px; left:8%; bottom:-100px; background:var(--mint); animation-delay:-12s; }
+  .blob.b4{ width:280px; height:280px; right:6%; bottom:-80px; background:var(--grape); animation-delay:-18s; }
+  @keyframes drift{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(24px,-18px) scale(1.08); } }
+  .omr-band{ position:absolute; left:0; right:0; bottom:26px; display:flex; justify-content:center; gap:9px; }
+  .omr-band span{ width:8px; height:8px; border-radius:50%; background:var(--sky); opacity:.35; }
+  .omr-band span:nth-child(4n+1){ background:var(--coral); }
+  .omr-band span:nth-child(4n+2){ background:var(--sun); }
+  .omr-band span:nth-child(4n+3){ background:var(--mint); }
+  @media (prefers-reduced-motion: reduce){ .blob{ animation:none; } }
+
+  /* ---------- Navbar ---------- */
+  .navbar{
+    position:fixed; top:0; left:0; right:0; z-index:20;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 20px; gap:12px;
   }
-  .updated{ font-size:0.78rem; color:var(--ink-soft); margin-bottom:18px; }
-  section{ margin-bottom:22px; }
-  section:last-child{ margin-bottom:0; }
-  h2{
-    font-family:'Baloo Tamma 2',sans-serif; font-size:1.05rem; color:var(--ink); margin:0 0 8px;
+  .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+  .brand-badge{
+    width:40px; height:40px; border-radius:12px; background:var(--coral);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    box-shadow:var(--shadow-soft);
   }
-  p{ font-size:0.92rem; line-height:1.65; color:var(--ink-soft); margin:0; }
-  a{ color:#1a6e63; font-weight:600; }
-  .back{ display:inline-block; margin-top:18px; color:var(--sand); text-decoration:none; font-size:0.85rem; }
-  .lang-block{ display:none; }
-  .lang-block.active{ display:block; }
+  .brand-badge svg{ width:23px; height:23px; }
+  .brand-name{ font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1.25rem; color:var(--ink); line-height:1.1; }
+  .brand-name span{ color:var(--sky-deep); }
+  .brand-sub{ font-size:9.5px; font-weight:800; letter-spacing:.02em; color:var(--ink-soft); margin-top:1px; }
+
+  .nav-links{
+    display:flex; align-items:center; gap:26px; list-style:none; margin:0; padding:0;
+  }
+  .nav-links a{
+    text-decoration:none; color:var(--ink); font-weight:800; font-size:14.5px;
+    padding:6px 0; border-bottom:2px solid transparent; transition:border-color .2s ease, opacity .2s ease;
+  }
+  .nav-links a:hover{ border-color:var(--coral); opacity:.85; }
+
+  .lang-toggle{
+    display:flex; background:var(--white); border-radius:999px; padding:4px;
+    box-shadow:var(--shadow-soft); gap:2px; flex-shrink:0;
+  }
+  .lang-toggle button{
+    border:none; background:transparent; padding:7px 12px; border-radius:999px;
+    font-weight:800; font-size:0.76rem; color:var(--ink-soft); transition:all .2s; white-space:nowrap; cursor:pointer;
+  }
+  .lang-toggle button.active{ background:var(--sky); color:var(--white); }
+
+  .burger{
+    display:none; flex-direction:column; gap:5px; background:var(--white); border:none;
+    border-radius:12px; padding:11px 12px; box-shadow:var(--shadow-soft); cursor:pointer;
+  }
+  .burger span{ width:20px; height:2px; background:var(--ink); border-radius:2px; transition:transform .3s ease, opacity .3s ease; }
+  .burger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .burger.open span:nth-child(2){ opacity:0; }
+  .burger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-overlay{
+    position:fixed; inset:0; z-index:19; background:rgba(35,61,77,0.97); backdrop-filter:blur(6px);
+    display:flex; flex-direction:column; justify-content:center; gap:22px; padding:0 32px;
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+  }
+  .mobile-overlay.open{ opacity:1; pointer-events:auto; }
+  .mobile-overlay a{ text-decoration:none; color:var(--white); font-family:'Baloo 2',sans-serif; font-weight:700; font-size:1.7rem; }
+
+  @media (max-width:860px){
+    .nav-links{ display:none; }
+    .burger{ display:flex; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative; z-index:1; overflow:hidden; min-height:100vh; display:flex; flex-direction:column;
+    justify-content:center; padding:120px 20px 60px;
+  }
+  .hero-video{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    object-position:70% center; z-index:0; background:#3a0f0f;
+  }
+  .hero-overlay{
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:linear-gradient(100deg, rgba(20,10,14,.72) 0%, rgba(20,10,14,.46) 42%, rgba(20,10,14,.14) 68%, transparent 88%);
+  }
+  .hero-content-wrap{ position:relative; z-index:1; max-width:1080px; margin:0 auto; width:100%; }
+  .hero-inner{ max-width:640px; }
+  .hero-eyebrow{
+    display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:800;
+    letter-spacing:.02em; color:var(--coral-deep); background:#FFEDE9;
+    padding:6px 14px; border-radius:999px; margin-bottom:20px;
+  }
+  .intro-blur{
+    user-select:none; margin-bottom:18px;
+    font-size:clamp(15px,3vw,19px); line-height:1.5; font-weight:600;
+    color:rgba(255,255,255,.88);
+  }
+  .typewriter{
+    font-family:'Baloo 2','Noto Sans Sinhala','Noto Sans Tamil',sans-serif;
+    font-size:clamp(26px,5vw,42px); line-height:1.28; font-weight:700; color:#fff;
+    text-shadow:0 3px 20px rgba(0,0,0,.35);
+    margin:0 0 26px; min-height:2.6em;
+  }
+  .cursor{ display:inline-block; width:3px; height:0.95em; background:#fff; vertical-align:middle; margin-left:2px; animation:blink 1s step-end infinite; }
+  @keyframes blink{ 0%,100%{ opacity:1; } 50%{ opacity:0; } }
+
+  .pills{ display:flex; flex-wrap:wrap; gap:12px; }
+  .pill{
+    display:inline-flex; align-items:center; gap:10px; cursor:default; user-select:none;
+    background:var(--white); color:var(--ink); border:2px solid transparent; border-radius:999px;
+    padding:13px 20px; font-weight:800; font-size:14.5px; box-shadow:var(--shadow-soft);
+  }
+  .pill .ic{ font-size:1.15rem; }
+  .pill.p4{ border-color:var(--grape); }
+  .pill.p4 .tag-new{
+    font-size:10px; font-weight:800; background:var(--grape); color:var(--white);
+    padding:2px 8px; border-radius:999px; letter-spacing:.03em;
+  }
+
+  .edu-quote{ margin-top:24px; max-width:520px; }
+  .edu-quote-mark{
+    font-family:Georgia,'Times New Roman',serif; font-size:2.1rem; line-height:1;
+    color:rgba(255,255,255,.5); margin-bottom:2px;
+  }
+  .edu-quote-text{
+    font-family:'Baloo 2','Noto Sans Sinhala','Noto Sans Tamil',sans-serif; font-style:italic;
+    font-weight:600; font-size:clamp(14px,2.6vw,17px); color:rgba(255,255,255,.94); line-height:1.55;
+    margin:0;
+  }
+  .edu-quote-author{ margin:8px 0 0; font-size:13px; font-weight:800; color:rgba(255,255,255,.72); }
+
+  .scroll-cue{
+    position:absolute; left:50%; bottom:26px; transform:translateX(-50%);
+    font-size:12px; font-weight:800; color:rgba(255,255,255,.85); display:flex; flex-direction:column;
+    align-items:center; gap:6px; z-index:1;
+  }
+  .scroll-cue .dot{ width:6px; height:6px; border-radius:50%; background:var(--coral); animation:bob 1.6s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(6px); } }
+
+  /* ---------- What you'll find strip ---------- */
+  .strip{ position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:10px 20px 70px; }
+  .strip-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .strip-card{
+    background:var(--white); border-radius:var(--radius-md); padding:22px 18px;
+    box-shadow:var(--shadow-soft); text-decoration:none; color:var(--ink);
+    transition:transform .25s ease, box-shadow .25s ease; display:block;
+  }
+  .strip-card:hover{ transform:translateY(-5px); box-shadow:var(--shadow-pop); }
+  .strip-card .emoji{ font-size:1.7rem; display:block; margin-bottom:10px; }
+  .strip-card .t{ font-weight:800; font-size:14.5px; margin-bottom:4px; }
+  .strip-card .d{ font-size:12px; color:var(--ink-soft); font-weight:700; line-height:1.5; }
+  @media (max-width:860px){ .strip-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:520px){ .strip-grid{ grid-template-columns:1fr; } }
+
+  /* desktop-only: 3D stacked / cascading cards */
+  @media (min-width:861px){
+    .strip-grid{
+      display:flex; flex-direction:column; align-items:center;
+      perspective:1800px; padding:6px 0 40px;
+    }
+    .strip-card{
+      width:100%; max-width:620px; transform-origin:top center;
+      box-shadow:0 22px 40px rgba(35,61,77,.18);
+      transition:transform .35s ease, box-shadow .35s ease, z-index 0s;
+    }
+    .strip-card:nth-child(1){ z-index:4; transform:rotateX(0deg) scale(1); margin-top:0; }
+    .strip-card:nth-child(2){ z-index:3; transform:rotateX(5deg) scale(.96); margin-top:-48px; }
+    .strip-card:nth-child(3){ z-index:2; transform:rotateX(5deg) scale(.93); margin-top:-48px; }
+    .strip-card:nth-child(4){ z-index:1; transform:rotateX(5deg) scale(.90); margin-top:-48px; }
+    .strip-card:hover{
+      transform:rotateX(0deg) scale(1.03) translateY(-16px) !important;
+      z-index:10 !important; box-shadow:0 30px 56px rgba(35,61,77,.28);
+    }
+  }
+
+  /* ---------- Exam intro (below hero) ---------- */
+  .exam-intro{ position:relative; z-index:1; max-width:820px; margin:0 auto; padding:8px 20px 6px; text-align:center; }
+  .exam-intro h2{ font-size:1.5rem; margin:0 0 12px; color:var(--ink); }
+  .exam-intro p{ font-size:14.5px; line-height:1.85; color:var(--ink-soft); font-weight:600; margin:0; }
+
+  /* ---------- Feedback / send-a-message section ---------- */
+  .feedback{ position:relative; z-index:1; max-width:640px; margin:14px auto 30px; padding:0 20px; }
+  .feedback-inner{
+    background:var(--white); border-radius:var(--radius-lg); padding:26px 22px;
+    box-shadow:var(--shadow-soft); text-align:center;
+  }
+  .feedback-inner h3{ font-size:1.25rem; margin:0 0 8px; color:var(--ink); }
+  .feedback-inner .sub{ font-size:13px; color:var(--ink-soft); font-weight:700; margin:0 0 18px; line-height:1.6; }
+  .feedback-form{ display:flex; flex-direction:column; gap:12px; text-align:left; }
+  .feedback-form input, .feedback-form textarea{
+    width:100%; border:1.5px solid #E7ECEF; border-radius:var(--radius-md);
+    padding:12px 14px; font-family:inherit; font-size:14px; color:var(--ink);
+    background:var(--cream); transition:border-color .2s ease;
+  }
+  .feedback-form input:focus, .feedback-form textarea:focus{ outline:none; border-color:var(--sky); background:var(--white); }
+  .feedback-form textarea{ min-height:120px; resize:vertical; }
+  .feedback-submit{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    background:var(--mint); color:var(--white); border:none; border-radius:999px;
+    padding:13px 20px; font-weight:800; font-size:14.5px; cursor:pointer;
+    box-shadow:var(--shadow-soft); transition:transform .2s ease, background .2s ease;
+  }
+  .feedback-submit:hover{ transform:translateY(-2px); background:var(--mint-deep); }
+  .feedback-submit:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+  .feedback-status{ margin:12px 0 0; font-size:13px; font-weight:800; text-align:center; min-height:16px; }
+  .feedback-status.ok{ color:var(--mint-deep); }
+  .feedback-status.err{ color:var(--coral-deep); }
+
+  /* ---------- Footer (shared across the site) ---------- */
+  /* ---------- Parent awareness note ---------- */
+  .parent-note{ position:relative; z-index:1; max-width:1040px; margin:0 auto 26px; padding:0 20px; }
+  .parent-note-inner{
+    display:flex; align-items:flex-start; gap:12px; background:#FFF6E8; border:1px solid #F4E1BE;
+    border-radius:var(--radius-md); padding:16px 18px; box-shadow:var(--shadow-soft);
+  }
+  .parent-note-ic{ font-size:1.3rem; flex-shrink:0; line-height:1.3; }
+  .parent-note-text{ display:flex; flex-direction:column; gap:4px; }
+  .parent-note-label{ font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-soft); }
+  .parent-note-link{
+    font-family:'Baloo 2','Noto Sans Sinhala',sans-serif; font-weight:700; font-size:14.5px;
+    color:var(--coral-deep); text-decoration:underline; text-underline-offset:2px; line-height:1.5;
+  }
+  .parent-note-link:hover{ color:var(--ink); }
+
+  footer.site-footer{
+    position:relative; z-index:1; margin:0 20px 26px; max-width:1040px; margin-left:auto; margin-right:auto;
+    background:var(--white); border-radius:var(--radius-lg); box-shadow:var(--shadow-soft);
+    padding:36px 30px 24px;
+  }
+  .footer-top{ display:flex; flex-wrap:wrap; gap:32px; justify-content:space-between; padding-bottom:24px; border-bottom:1px solid #EEF1F4; }
+  .footer-brand{ display:flex; gap:12px; max-width:280px; }
+  .footer-brand .brand-badge{ width:44px; height:44px; }
+  .footer-brand .brand-badge svg{ width:25px; height:25px; }
+  .footer-tag{ font-size:12.5px; color:var(--ink-soft); font-weight:700; line-height:1.6; margin-top:4px; }
+  .footer-col-title{ font-size:11.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:12px; display:block; }
+  .footer-links{ display:flex; flex-direction:column; gap:9px; }
+  .footer-links a{ text-decoration:none; color:var(--ink); font-weight:700; font-size:13.5px; transition:color .2s ease; }
+  .footer-links a:hover{ color:var(--sky-deep); }
+  .footer-credits{ display:flex; flex-direction:column; gap:9px; }
+  .footer-credits span{ display:flex; align-items:center; gap:7px; color:var(--ink-soft); font-size:12.5px; font-weight:800; }
+  .footer-credits b{ color:var(--ink); }
+  .footer-bottom{
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center;
+    padding-top:18px; font-size:12px; color:var(--ink-soft); font-weight:700;
+  }
+  .footer-bottom .flogo{ font-weight:800; color:var(--ink); }
+  @media (max-width:640px){ .footer-top{ flex-direction:column; gap:22px; } }
+
+  ::selection{ background:#FFE6BF; }
 </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
-<body>
+<body class="lang-si">
 
-<div class="lang-switch">
-  <button data-lang="si" onclick="setLang('si')">සිං</button>
-  <button data-lang="en" onclick="setLang('en')">EN</button>
+<div class="bg-stage" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+  <div class="omr-band">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
 </div>
 
-<header>
-  <h1 data-i18n-title>ගණිත හපන්නු — සේවා කොන්දේසි</h1>
-  <p data-i18n-sub>Edu Pab විසින් නොමිලේ සපයන අධ්‍යාපනික ගණිත ක්‍රීඩාවක්</p>
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+  <a class="brand" href="Grade_5_Scholarship_Examination.html">
+    <div class="brand-badge">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 22 L86 40 L50 58 L14 40 Z" fill="#FFFFFF"/>
+        <path d="M28 47 V66 C28 66 38 76 50 76 C62 76 72 66 72 66 V47 L50 58 Z" fill="#FFD23F"/>
+        <circle cx="84" cy="40" r="3.2" fill="#FFFFFF"/>
+        <rect x="83" y="40" width="1.6" height="20" fill="#FFFFFF"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand-name">Edu <span>Pab</span></div>
+      <div class="brand-sub">
+        <span data-lang="si">5 ශ්‍රේණිය ශිෂ්‍යත්ව විභාගය</span>
+        <span data-lang="ta">தரம் 5 புலமைப்பரிசில் தேர்வு</span>
+        <span data-lang="en">Grade 5 Scholarship Examination</span>
+      </div>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="Scholarship_Exam_Papers.html">
+      <span data-lang="si">පැරණි ප්‍රශ්න පත්‍ර</span><span data-lang="ta">பழைய வினாத்தாள்கள்</span><span data-lang="en">Past Papers</span>
+    </a></li>
+    <li><a href="edu-pab-Scholarship_Exam_model_papers_home.html">
+      <span data-lang="si">ආදර්ශ ප්‍රශ්න පත්‍ර</span><span data-lang="ta">மாதிரி வினாத்தாள்கள்</span><span data-lang="en">Model Papers</span>
+    </a></li>
+    <li><a href="Edu_Pab_Scholarship_Examination_Short_Note.html">
+      <span data-lang="si">කෙටි සටහන්</span><span data-lang="ta">சுருக்கக் குறிப்புகள்</span><span data-lang="en">Short Notes</span>
+    </a></li>
+    <li><a href="https://ganithahapannu.netlify.app/" target="_blank" rel="noopener">
+      <span data-lang="si">ගණිත හපන්නු</span><span data-lang="ta">Ganitha Hapannu</span><span data-lang="en">Math Game</span>
+    </a></li>
+  </ul>
+
+  <div style="display:flex; align-items:center; gap:10px;">
+    <div class="lang-toggle">
+      <button id="btn-si" class="active" onclick="setLang('si')">සිංහල</button>
+      <button id="btn-ta" onclick="setLang('ta')">தமிழ்</button>
+      <button id="btn-en" onclick="setLang('en')">English</button>
+    </div>
+    <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <a href="Scholarship_Exam_Papers.html"><span data-lang="si">පැරණි ප්‍රශ්න පත්‍ර</span><span data-lang="ta">பழைய வினாத்தாள்கள்</span><span data-lang="en">Past Papers</span></a>
+  <a href="edu-pab-Scholarship_Exam_model_papers_home.html"><span data-lang="si">ආදර්ශ ප්‍රශ්න පත්‍ර</span><span data-lang="ta">மாதிரி வினாத்தாள்கள்</span><span data-lang="en">Model Papers</span></a>
+  <a href="Edu_Pab_Scholarship_Examination_Short_Note.html"><span data-lang="si">කෙටි සටහන්</span><span data-lang="ta">சுருக்கக் குறிப்புகள்</span><span data-lang="en">Short Notes</span></a>
+  <a href="https://ganithahapannu.netlify.app/" target="_blank" rel="noopener"><span data-lang="si">ගණිත හපන්නු</span><span data-lang="ta">Ganitha Hapannu</span><span data-lang="en">Math Game</span></a>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <video id="heroVideo" class="hero-video" muted playsinline preload="auto"
+    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_041744_63efcd78-bf7d-4039-99e2-2461e8a61903.mp4"></video>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-content-wrap">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span data-lang="si">🏆 5 ශ්‍රේණිය ශිෂ්‍යත්ව විභාගය</span>
+      <span data-lang="ta">🏆 5 ஆம் தர புலமைப்பரிசில் பரீட்சை</span>
+      <span data-lang="en">🏆 Grade 5 Scholarship Exam</span>
+    </div>
+
+    <p class="intro-blur">
+      <span data-lang="si">ආයුබෝවන්, මේ Edu Pab —<br>ශිෂ්‍යත්ව සිසුන් වෙනුවෙන්ම හදපු නොමිලේ අධ්‍යාපන වේදිකාවක්.</span>
+      <span data-lang="ta">வணக்கம், இது Edu Pab —<br>புலமைப்பரிசில் மாணவர்களுக்காகவே உருவாக்கப்பட்ட இலவசக் கற்றல் தளம்.</span>
+      <span data-lang="en">Hey there, this is Edu Pab —<br>a free learning hub built just for Grade 5 Scholarship students.</span>
+    </p>
+
+    <h1 class="typewriter" id="typewriter"></h1>
+
+    <div class="pills">
+      <div class="pill p1">
+        <span class="ic">📄</span>
+        <span data-lang="si">පැරණි ප්‍රශ්න පත්‍ර බලන්න</span>
+        <span data-lang="ta">பழைய வினாத்தாள்களைப் பார்க்க</span>
+        <span data-lang="en">Browse past papers</span>
+      </div>
+      <div class="pill p2">
+        <span class="ic">📘</span>
+        <span data-lang="si">ආදර්ශ ප්‍රශ්න පත්‍ර ලබාගන්න</span>
+        <span data-lang="ta">மாதிரி வினாத்தாள்களைப் பெற</span>
+        <span data-lang="en">Get model papers</span>
+      </div>
+      <div class="pill p3">
+        <span class="ic">📝</span>
+        <span data-lang="si">කෙටි සටහන් කියවන්න</span>
+        <span data-lang="ta">சுருக்கக் குறிப்புகளைப் படிக்க</span>
+        <span data-lang="en">Read short notes</span>
+      </div>
+      <div class="pill p4">
+        <span class="ic">🎮</span>
+        <span data-lang="si">ගණිත හපන්නු ක්‍රීඩාව</span>
+        <span data-lang="ta">Ganitha Hapannu விளையாட்டு</span>
+        <span data-lang="en">Play Ganitha Hapannu</span>
+        <span class="tag-new" data-lang="si">ක්‍රීඩාව</span>
+        <span class="tag-new" data-lang="ta">Game</span>
+        <span class="tag-new" data-lang="en">Game</span>
+      </div>
+    </div>
+
+    <div class="edu-quote">
+      <div class="edu-quote-mark" aria-hidden="true">❝</div>
+      <p class="edu-quote-text">
+        <span data-lang="si">අධ්‍යාපනය ලෝකය වෙනස් කිරීමට ඔබට තිබෙන ප්‍රබලතම ආයුධයයි.</span>
+        <span data-lang="ta">கல்வி என்பது உலகை மாற்றுவதற்கு நீங்கள் பயன்படுத்தக்கூடிய மிகச் சக்திவாய்ந்த ஆயுதம்.</span>
+        <span data-lang="en">Education is the most powerful weapon which you can use to change the world.</span>
+      </p>
+      <p class="edu-quote-author">
+        <span data-lang="si">— නෙල්සන් මැන්ඩෙලා</span>
+        <span data-lang="ta">— நெல்சன் மண்டேலா</span>
+        <span data-lang="en">— Nelson Mandela</span>
+      </p>
+    </div>
+  </div>
+  </div>
+
+  <div class="scroll-cue">
+    <span data-lang="si">පහළට යන්න</span>
+    <span data-lang="ta">கீழே செல்லவும்</span>
+    <span data-lang="en">Scroll down</span>
+    <span class="dot"></span>
+  </div>
 </header>
 
-<main>
-  <!-- ================= SINHALA ================= -->
-  <div class="lang-block active" id="block-si">
-    <div class="card">
-      <div class="updated">බලපැවැත්වෙන දිනය: 2026 සැප්තැම්බර් 01</div>
+<!-- ================= EXAM INTRO ================= -->
+<section class="exam-intro">
+  <h2>
+    <span data-lang="si">5 ශ්‍රේණිය ශිෂ්‍යත්ව විභාගය යනු කුමක්ද?</span>
+    <span data-lang="ta">5 ஆம் தர புலமைப்பரிசில் பரீட்சை என்றால் என்ன?</span>
+    <span data-lang="en">What is the Grade 5 Scholarship Examination?</span>
+  </h2>
+  <p>
+    <span data-lang="si">ශ්‍රී ලංකා විභාග දෙපාර්තමේන්තුව මගින් වාර්ෂිකව පවත්වනු ලබන මෙම ජාතික මට්ටමේ විභාගය, ප්‍රාථමික අධ්‍යාපනයෙන් ද්විතීයික අධ්‍යාපනයට පිවිසෙන සිසුන් සඳහා ශිෂ්‍යත්ව මුදල් හා පාසල් මාරු කිරීම් සඳහා අවස්ථාව සලසයි. විභාගය ප්‍රශ්න පත්‍ර දෙකකින් සමන්විත වේ — පළමු පත්‍රය පොදු දැනීම, පරිසරය හා භාෂාව ආශ්‍රිතව ද, දෙවන පත්‍රය ගණිතය ආශ්‍රිතව ද සකසා ඇත. හොඳම ප්‍රතිඵල ලබන සිසුන්ට රජයේ ශිෂ්‍යත්ව මුදල් හා ප්‍රසිද්ධ පාසල්වලට ඇතුළත් වීමේ අවස්ථාව හිමි වේ.</span>
+    <span data-lang="ta">இலங்கை பரீட்சைத் திணைக்களத்தால் ஆண்டுதோறும் நடத்தப்படும் இந்தத் தேசிய மட்டப் பரீட்சை, ஆரம்பக் கல்வியிலிருந்து இடைநிலைக் கல்விக்குச் செல்லும் மாணவர்களுக்குப் புலமைப்பரிசில் மற்றும் பாடசாலை மாற்றத்திற்கான வாய்ப்பை வழங்குகிறது. இது இரு வினாத்தாள்களைக் கொண்டுள்ளது — முதலாவது பொது அறிவு, சூழல் மற்றும் மொழி தொடர்பானது; இரண்டாவது கணிதம் தொடர்பானது. சிறந்த முடிவுகளைப் பெறும் மாணவர்களுக்கு அரசாங்க புலமைப்பரிசில் தொகையும், புகழ்பெற்ற பாடசாலைகளில் சேரும் வாய்ப்பும் கிடைக்கிறது.</span>
+    <span data-lang="en">Held annually by the Department of Examinations, Sri Lanka, this national-level exam gives students moving from primary to secondary school the chance to earn a scholarship and a place in a more sought-after school. It's made up of two papers — the first covering general knowledge, environment and language, and the second covering mathematics. Students with the strongest results are awarded scholarship funds and priority school placements.</span>
+  </p>
+</section>
 
-      <section>
-        <h2>1. මෙම App එක ගැන</h2>
-        <p>"ගණිත හපන්නු" යනු 5 වසර ශිෂ්‍යත්ව විභාගය සඳහා ළමුන්ට ගණිතය පුහුණු වීම සඳහා Edu Pab විසින් නිර්මාණය කරන ලද අධ්‍යාපනික ක්‍රීඩාවකි. මෙය සම්පූර්ණයෙන්ම නොමිලේ, අධ්‍යාපනික අරමුණු සඳහා පමණක් සකසා ඇත.</p>
-      </section>
+<!-- ================= STRIP: what's here ================= -->
+<section class="strip">
+  <div class="strip-grid">
+    <a class="strip-card" href="Scholarship_Exam_Papers.html">
+      <span class="emoji">📄</span>
+      <span class="t" data-lang="si">පැරණි ප්‍රශ්න පත්‍ර</span>
+      <span class="t" data-lang="ta">பழைய வினாத்தாள்கள்</span>
+      <span class="t" data-lang="en">Past Papers</span>
+      <span class="d" data-lang="si">2014–2026, සිංහල හා දෙමළ මාධ්‍යයෙන්, පිළිතුරු සමඟ</span>
+      <span class="d" data-lang="ta">2014–2026, சிங்களம் மற்றும் தமிழ் ஊடகங்களில், விடைகளுடன்</span>
+      <span class="d" data-lang="en">2014–2026 archive, Sinhala & Tamil medium, with answers</span>
+    </a>
+    <a class="strip-card" href="edu-pab-Scholarship_Exam_model_papers_home.html">
+      <span class="emoji">📘</span>
+      <span class="t" data-lang="si">ආදර්ශ ප්‍රශ්න පත්‍ර</span>
+      <span class="t" data-lang="ta">மாதிரி வினாத்தாள்கள்</span>
+      <span class="t" data-lang="en">Model Papers</span>
+      <span class="d" data-lang="si">2026 සඳහා පළාත් හා කලාප අනුව සකසන ලද ආදර්ශ ප්‍රශ්න පත්‍ර</span>
+      <span class="d" data-lang="ta">2026க்கான மாகாணம் மற்றும் வலயம் வாரியான மாதிரி வினாத்தாள்கள்</span>
+      <span class="d" data-lang="en">2026 model papers, sorted by province and zone</span>
+    </a>
+    <a class="strip-card" href="Edu_Pab_Scholarship_Examination_Short_Note.html">
+      <span class="emoji">📝</span>
+      <span class="t" data-lang="si">කෙටි සටහන්</span>
+      <span class="t" data-lang="ta">சுருக்கக் குறிப்புகள்</span>
+      <span class="t" data-lang="en">Short Notes</span>
+      <span class="d" data-lang="si">ඉක්මනින් සමාලෝචනය කරගැනීමට වින්‍යාසගත කෙටි සටහන් පොත</span>
+      <span class="d" data-lang="ta">விரைவான திருப்பிப் பார்வைக்கான சுருக்கக் குறிப்பு புத்தகம்</span>
+      <span class="d" data-lang="en">A tidy short-notes booklet for quick revision</span>
+    </a>
+    <a class="strip-card" href="https://ganithahapannu.netlify.app/" target="_blank" rel="noopener">
+      <span class="emoji">🎮</span>
+      <span class="t" data-lang="si">ගණිත හපන්නු</span>
+      <span class="t" data-lang="ta">கணிதம் ஹபன்னு</span>
+      <span class="t" data-lang="en">Ganitha Hapannu</span>
+      <span class="d" data-lang="si">ක්‍රීඩාවක් ඇසුරෙන් ගණන් හදන්න පුරුදු වෙන්න</span>
+      <span class="d" data-lang="ta">ஒரு விளையாட்டு மூலம் கணக்குகள் செய்யப் பழகுங்கள்</span>
+      <span class="d" data-lang="en">Practise maths problems through a fun game</span>
+    </a>
+  </div>
+</section>
 
-      <section>
-        <h2>2. ගිණුම් සහ ප්‍රගතිය</h2>
-        <p>Google ගිණුමකින් login වීම විකල්පයකි. login වුවහොත් ලේවල් ප්‍රගතිය (තරු/coins) ඔයාගේම Google Drive ගිණුමේ රහසිගතව save වේ. Guest ලෙස ක්‍රීඩා කළහොත් ප්‍රගතිය එම device එකේ පමණක් save වේ, වෙනත් තැනක backup වන්නේ නැත.</p>
-      </section>
-
-      <section>
-        <h2>3. නිසි භාවිතය</h2>
-        <p>මෙම ක්‍රීඩාව අදහස් කරන අධ්‍යාපනික අරමුණ සඳහා පමණක් භාවිත කරන්න. පද්ධතියට හෝ එහි services වලට හානි කිරීමට, බාධා කිරීමට උත්සාහ නොකරන ලෙසත්, වෙනත් අයගේ ගිණුම් හෝ දත්ත වලට අනවසරයෙන් ප්‍රවේශ වීමට උත්සාහ නොකරන ලෙසත් ඔයා එකඟ වේ.</p>
-      </section>
-
-      <section>
-        <h2>4. වගකීමක් නොමැති බව</h2>
-        <p>මෙම ක්‍රීඩාව "ඇති ආකාරයෙන්ම" ("as is"), නොමිලේ, කිසිදු වගකීමකින් තොරව සපයනු ලැබේ. ක්‍රීඩාවේ ඇති ප්‍රශ්න පුහුණුවීම් අරමුණින් සකසා ඇති අතර, ප්‍රවේශමෙන් සකසා ඇතත්, පාසල් හෝ විභාග දෙපාර්තමේන්තු නිල ද්‍රව්‍යවලට සම්පූර්ණ ආදේශකයක් ලෙස සැලකිය නොහැක.</p>
-      </section>
-
-      <section>
-        <h2>5. මෙම කොන්දේසි වල වෙනස්කම්</h2>
-        <p>මෙම කොන්දේසි වරින් වර යාවත්කාලීන විය හැක. විශාල වෙනස්කම් සිදු වුවහොත් ඉහත 'බලපැවැත්වෙන දිනය' යාවත්කාලීන කරනු ලැබේ.</p>
-      </section>
-
-      <section>
-        <h2>6. අප හා සම්බන්ධ වන්න</h2>
-        <p>මෙම කොන්දේසි සම්බන්ධයෙන් ප්‍රශ්න තිබේ නම්, කරුණාකර app එක තුළ ඇති 'අප හා සම්බන්ධ වන්න' ෆෝරමය භාවිත කරන්න, නැත්නම් <a href="mailto:info.knownstudio@gmail.com">info.knownstudio@gmail.com</a> වෙත ලියන්න.</p>
-      </section>
+<!-- ================= PARENT AWARENESS NOTE ================= -->
+<section class="parent-note">
+  <div class="parent-note-inner">
+    <span class="parent-note-ic" aria-hidden="true">📢</span>
+    <div class="parent-note-text">
+      <span class="parent-note-label" data-lang="si">දෙමාපියන් සඳහා දැනුවත් කිරීමක්</span>
+      <span class="parent-note-label" data-lang="ta">பெற்றோருக்கான விழிப்புணர்வு</span>
+      <span class="parent-note-label" data-lang="en">A note for parents</span>
+      <a class="parent-note-link" href="https://leftlibrary.net/archives/2585" target="_blank" rel="noopener">
+        5 වසර ශිෂ්‍යත්වය හරහා දරුවන්ගේ හිස මතට ඇද වැටෙන ධනවාදයේ අර්බුදය ↗
+      </a>
     </div>
-    <a class="back" href="/">← ආපහු ගණිත හපන්නු</a>
+  </div>
+</section>
+
+<!-- ================= FEEDBACK / SEND A MESSAGE ================= -->
+<section class="feedback">
+  <div class="feedback-inner">
+    <h3>
+      <span data-lang="si">🗨️ ඔබේ අදහසක් තියෙනවද?</span>
+      <span data-lang="ta">🗨️ உங்கள் கருத்தை பகிருங்கள்</span>
+      <span data-lang="en">🗨️ Got feedback for us?</span>
+    </h3>
+    <p class="sub">
+      <span data-lang="si">ගැටලුවක්, යෝජනාවක් හෝ දෝෂයක් තියෙනවා නම් පහත පුරවන්න. ඔබේ පණිවිඩය කෙළින්ම අපිට ලැබෙනවා.</span>
+      <span data-lang="ta">ஒரு சிக்கல், யோசனை அல்லது பிழை இருந்தால் கீழே பூர்த்தி செய்யவும். உங்கள் செய்தி நேரடியாக எங்களுக்கு வரும்.</span>
+      <span data-lang="en">Found an issue or have a suggestion? Fill this in — your message comes straight to us.</span>
+    </p>
+    <form class="feedback-form" id="feedbackForm">
+      <input type="text" id="fbName" name="name" required
+        placeholder="ඔබේ නම">
+      <input type="email" id="fbEmail" name="email" required
+        placeholder="ඔබේ Email එක">
+      <textarea id="fbMessage" name="message" required
+        placeholder="ඔබේ අදහස / ප්‍රශ්නය / යෝජනාව..."></textarea>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAEpV3Iphf2vO15Vq" data-callback="onFbTurnstileToken"></div>
+      <button type="submit" class="feedback-submit" id="fbSubmitBtn">
+        <span>📩</span>
+        <span data-lang="si" class="inline">එවන්න</span>
+        <span data-lang="ta" class="inline">அனுப்பு</span>
+        <span data-lang="en" class="inline">Send</span>
+      </button>
+    </form>
+    <p class="feedback-status" id="fbStatus"></p>
+  </div>
+</section>
+
+<!-- ================= FOOTER (shared across the site) ================= -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="brand-badge">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 22 L86 40 L50 58 L14 40 Z" fill="#FFFFFF"/>
+          <path d="M28 47 V66 C28 66 38 76 50 76 C62 76 72 66 72 66 V47 L50 58 Z" fill="#FFD23F"/>
+          <circle cx="84" cy="40" r="3.2" fill="#FFFFFF"/>
+          <rect x="83" y="40" width="1.6" height="20" fill="#FFFFFF"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">Edu <span>Pab</span></div>
+        <p class="footer-tag" data-lang="si">ශිෂ්‍යත්ව සිසුන් සඳහා නොමිලේ අධ්‍යාපන සම්පත් — ප්‍රශ්න පත්‍ර, සටහන් සහ ක්‍රීඩා ඇසුරින් ඉගෙනීම.</p>
+        <p class="footer-tag" data-lang="ta">புலமைப்பரிசில் மாணவர்களுக்கான இலவச கற்றல் வளங்கள் — வினாத்தாள்கள், குறிப்புகள் மற்றும் விளையாட்டுகள்.</p>
+        <p class="footer-tag" data-lang="en">Free learning resources for Grade 5 Scholarship students — papers, notes and a game to make practice fun.</p>
+      </div>
+    </div>
+
+    <div>
+      <span class="footer-col-title" data-lang="si">ඉක්මන් සබැඳි</span>
+      <span class="footer-col-title" data-lang="ta">விரைவு இணைப்புகள்</span>
+      <span class="footer-col-title" data-lang="en">Quick Links</span>
+      <div class="footer-links">
+        <a href="Scholarship_Exam_Papers.html"><span data-lang="si">පැරණි ප්‍රශ්න පත්‍ර</span><span data-lang="ta">பழைய வினாத்தாள்கள்</span><span data-lang="en">Past Papers</span></a>
+        <a href="edu-pab-Scholarship_Exam_model_papers_home.html"><span data-lang="si">ආදර්ශ ප්‍රශ්න පත්‍ර</span><span data-lang="ta">மாதிரி வினாத்தாள்கள்</span><span data-lang="en">Model Papers</span></a>
+        <a href="Edu_Pab_Scholarship_Examination_Short_Note.html"><span data-lang="si">කෙටි සටහන්</span><span data-lang="ta">சுருக்கக் குறிப்புகள்</span><span data-lang="en">Short Notes</span></a>
+        <a href="https://ganithahapannu.netlify.app/" target="_blank" rel="noopener"><span data-lang="si">ගණිත හපන්නු</span><span data-lang="ta">Ganitha Hapannu</span><span data-lang="en">Math Game</span></a>
+      </div>
+    </div>
+
+    <div>
+      <span class="footer-col-title" data-lang="si">මෙය ක්‍රියාත්මක කරන්නේ</span>
+      <span class="footer-col-title" data-lang="ta">இதை இயக்குபவை</span>
+      <span class="footer-col-title" data-lang="en">Powered By</span>
+      <div class="footer-credits">
+        <span>🎨 <span data-lang="si">නිර්මාණය</span><span data-lang="ta">வடிவமைப்பு</span><span data-lang="en">Design by</span> <b>Known Studio</b></span>
+        <span>🛡️ <span data-lang="si">ආරක්ෂාව</span><span data-lang="ta">பாதுகாப்பு</span><span data-lang="en">Security by</span> <b>Cloudflare</b></span>
+        <span>☁️ <span data-lang="si">ගබඩාව</span><span data-lang="ta">சேமிப்பு</span><span data-lang="en">Storage by</span> <b>Google Drive</b></span>
+      </div>
+    </div>
   </div>
 
-  <!-- ================= ENGLISH ================= -->
-  <div class="lang-block" id="block-en">
-    <div class="card">
-      <div class="updated">Effective date: 1 September 2026</div>
-
-      <section>
-        <h2>1. About This App</h2>
-        <p>"Ganitha Hapannu" is a free educational game created by Edu Pab to help children practice mathematics for the Grade 5 Scholarship Examination in Sri Lanka. It is provided free of charge, for educational purposes only.</p>
-      </section>
-
-      <section>
-        <h2>2. Accounts & Progress</h2>
-        <p>Signing in with a Google account is optional. If you sign in, your level progress (stars and coins) is saved privately to your own Google Drive account. If you play as a Guest, your progress is saved only on that device and is not backed up elsewhere.</p>
-      </section>
-
-      <section>
-        <h2>3. Acceptable Use</h2>
-        <p>Please use this game for its intended educational purpose. You agree not to attempt to damage, disrupt, or interfere with the app or its systems, and not to attempt unauthorized access to another user's account or data.</p>
-      </section>
-
-      <section>
-        <h2>4. No Warranty</h2>
-        <p>This game is provided "as is," free of charge, without warranties of any kind. Questions in the game are for practice purposes and, while created carefully, should not be treated as an official or complete substitute for school or Department of Examinations material.</p>
-      </section>
-
-      <section>
-        <h2>5. Changes to These Terms</h2>
-        <p>These terms may be updated from time to time. Material changes will be reflected by updating the "Effective date" above.</p>
-      </section>
-
-      <section>
-        <h2>6. Contact Us</h2>
-        <p>If you have any questions about these terms, please use the "Contact Us" form inside the app, or reach out at <a href="mailto:info.knownstudio@gmail.com">info.knownstudio@gmail.com</a>.</p>
-      </section>
-    </div>
-    <a class="back" href="/">← Back to Ganitha Hapannu</a>
+  <div class="footer-bottom">
+    <span class="flogo">© 2026 Edu Pab · Known Studio</span>
+    <span data-lang="si">සියලුම හිමිකම් ඇවිරිණි · ප්‍රශ්න පත්‍ර අදාළ අධ්‍යාපන කාර්යාල සතුය</span>
+    <span data-lang="ta">அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை · வினாத்தாள்கள் அந்தந்த கல்வி அலுவலகங்களுக்குச் சொந்தமானவை</span>
+    <span data-lang="en">All rights reserved · Papers belong to their respective education authorities</span>
   </div>
-</main>
+</footer>
 
 <script>
-  const TITLES = {
-    si: { title:"ගණිත හපන්නු — සේවා කොන්දේසි", sub:"Edu Pab විසින් නොමිලේ සපයන අධ්‍යාපනික ගණිත ක්‍රීඩාවක්" },
-    en: { title:"Ganitha Hapannu — Terms of Service", sub:"A free educational math game by Edu Pab" }
-  };
-  function setLang(lang){
-    document.querySelectorAll('.lang-switch button').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
-    document.querySelectorAll('.lang-block').forEach(b=>b.classList.remove('active'));
-    document.getElementById('block-'+lang).classList.add('active');
-    document.querySelector('[data-i18n-title]').textContent = TITLES[lang].title;
-    document.querySelector('[data-i18n-sub]').textContent = TITLES[lang].sub;
-    document.documentElement.lang = lang;
-    try{ localStorage.setItem('ganithaHapannuLang', lang); }catch(e){}
+/* ---------------- typewriter text per language ---------------- */
+const HERO_LINES = {
+  si: "ශිෂ්‍යත්ව සාර්ථකත්වය සඳහා අවශ්‍ය සියල්ල, එකම තැනකින්.",
+  ta: "புலமைப்பரிசில் வெற்றிக்குத் தேவையான அனைத்தும், ஒரே இடத்தில்.",
+  en: "Everything you need for scholarship success, in one place."
+};
+
+let lang = 'si';
+let typeTimer = null;
+
+function typewrite(text){
+  const el = document.getElementById('typewriter');
+  clearInterval(typeTimer);
+  el.innerHTML = '';
+  let i = 0;
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor';
+  el.appendChild(document.createTextNode(''));
+  el.appendChild(cursor);
+  typeTimer = setInterval(()=>{
+    if(i >= text.length){ clearInterval(typeTimer); cursor.remove(); return; }
+    cursor.insertAdjacentText('beforebegin', text[i]);
+    i++;
+  }, 32);
+}
+
+const FB_PLACEHOLDERS = {
+  si: { name:"ඔබේ නම", email:"ඔබේ Email එක", message:"ඔබේ අදහස / ප්‍රශ්නය / යෝජනාව..." },
+  ta: { name:"உங்கள் பெயர்", email:"உங்கள் மின்னஞ்சல்", message:"உங்கள் கருத்து / கேள்வி / யோசனை..." },
+  en: { name:"Your name", email:"Your email", message:"Your feedback / question / suggestion..." }
+};
+
+function setLang(l){
+  lang = l;
+  document.body.className = 'lang-' + l;
+  document.documentElement.lang = l;
+  document.getElementById('btn-si').classList.toggle('active', l==='si');
+  document.getElementById('btn-ta').classList.toggle('active', l==='ta');
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  typewrite(HERO_LINES[l]);
+  const fbName = document.getElementById('fbName');
+  const fbEmail = document.getElementById('fbEmail');
+  const fbMessage = document.getElementById('fbMessage');
+  if(fbName) fbName.placeholder = FB_PLACEHOLDERS[l].name;
+  if(fbEmail) fbEmail.placeholder = FB_PLACEHOLDERS[l].email;
+  if(fbMessage) fbMessage.placeholder = FB_PLACEHOLDERS[l].message;
+}
+
+/* mobile menu */
+const burger = document.getElementById('burgerBtn');
+const overlay = document.getElementById('mobileOverlay');
+burger.addEventListener('click', ()=>{
+  burger.classList.toggle('open');
+  overlay.classList.toggle('open');
+});
+overlay.querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click', ()=>{ burger.classList.remove('open'); overlay.classList.remove('open'); });
+});
+
+setTimeout(()=> typewrite(HERO_LINES[lang]), 550);
+
+/* ---------------- hero video: mouse-scrub control ---------------- */
+(function(){
+  const video = document.getElementById('heroVideo');
+  if(!video) return;
+  const SENSITIVITY = 0.8;
+  let prevX = null;
+  let targetTime = 0;
+  let seeking = false;
+  let ready = false;
+
+  video.addEventListener('loadedmetadata', ()=>{ ready = true; });
+
+  function queueSeek(t){
+    if(!ready || !video.duration) return;
+    targetTime = Math.max(0, Math.min(video.duration, t));
+    if(!seeking){
+      seeking = true;
+      video.currentTime = targetTime;
+    }
   }
-  (function(){
-    let saved = 'si';
-    try{ saved = localStorage.getItem('ganithaHapannuLang') || 'si'; }catch(e){}
-    setLang(saved);
-  })();
+
+  video.addEventListener('seeked', ()=>{
+    if(Math.abs(video.currentTime - targetTime) > 0.03){
+      video.currentTime = targetTime;
+    } else {
+      seeking = false;
+    }
+  });
+
+  function handleX(x){
+    if(prevX === null){ prevX = x; return; }
+    const delta = x - prevX;
+    prevX = x;
+    if(!ready || !video.duration) return;
+    const offset = (delta / window.innerWidth) * SENSITIVITY * video.duration;
+    queueSeek(targetTime + offset);
+  }
+
+  window.addEventListener('mousemove', e => handleX(e.clientX));
+  window.addEventListener('touchmove', e => {
+    if(e.touches && e.touches[0]) handleX(e.touches[0].clientX);
+  }, { passive:true });
+})();
+
+/* ---------------- feedback form: sends to the shared Telegram bot ---------------- */
+const FEEDBACK_ENDPOINT = "https://ganithahapannu.netlify.app/.netlify/functions/contact-message";
+const FB_STATUS_TEXT = {
+  sending: { si:"යවමින්...", ta:"அனுப்புகிறது...", en:"Sending..." },
+  ok:      { si:"✅ ස්තූතියි! ඔබේ පණිවිඩය ලැබුණා.", ta:"✅ நன்றி! உங்கள் செய்தி பெறப்பட்டது.", en:"✅ Thanks! Your message was received." },
+  err:     { si:"⚠️ යැවීමට නොහැකි විය. ටිකකින් උත්සාහ කරන්න.", ta:"⚠️ அனுப்ப முடியவில்லை. சிறிது நேரம் கழித்து முயற்சிக்கவும்.", en:"⚠️ Couldn't send. Please try again shortly." }
+};
+
+const feedbackForm = document.getElementById('feedbackForm');
+let fbTurnstileToken = '';
+function onFbTurnstileToken(token){ fbTurnstileToken = token; }
+
+if(feedbackForm){
+  feedbackForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const btn = document.getElementById('fbSubmitBtn');
+    const status = document.getElementById('fbStatus');
+    const name = document.getElementById('fbName').value.trim();
+    const email = document.getElementById('fbEmail').value.trim();
+    const message = document.getElementById('fbMessage').value.trim();
+    if(!name || !email || !message) return;
+
+    if(!fbTurnstileToken){
+      status.className = 'feedback-status err';
+      status.textContent = { si:"⚠️ කරුණාකර 'මම මිනිසෙක්' verification එක සම්පූර්ණ කරන්න.", ta:"⚠️ சரிபார்ப்பை முடிக்கவும்.", en:"⚠️ Please complete the verification check." }[lang];
+      return;
+    }
+
+    btn.disabled = true;
+    status.className = 'feedback-status';
+    status.textContent = FB_STATUS_TEXT.sending[lang];
+
+    try{
+      const res = await fetch(FEEDBACK_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          time: new Date().toISOString(),
+          source: "Grade 5 Scholarship page (Edu Pab)",
+          site: "edupab",
+          turnstileToken: fbTurnstileToken
+        })
+      });
+      if(!res.ok) throw new Error("bad status");
+      status.className = 'feedback-status ok';
+      status.textContent = FB_STATUS_TEXT.ok[lang];
+      feedbackForm.reset();
+      if(window.turnstile) window.turnstile.reset();
+      fbTurnstileToken = '';
+    }catch(err){
+      status.className = 'feedback-status err';
+      status.textContent = FB_STATUS_TEXT.err[lang];
+    }finally{
+      btn.disabled = false;
+    }
+  });
+}
 </script>
 </body>
 </html>
