@@ -526,6 +526,8 @@
     <form class="feedback-form" id="feedbackForm">
       <input type="text" id="fbName" name="name" required
         placeholder="ඔබේ නම">
+      <input type="email" id="fbEmail" name="email" required
+        placeholder="ඔබේ Email එක">
       <textarea id="fbMessage" name="message" required
         placeholder="ඔබේ අදහස / ප්‍රශ්නය / යෝජනාව..."></textarea>
       <div class="cf-turnstile" data-sitekey="0x4AAAAAAEpV3Iphf2vO15Vq" data-callback="onFbTurnstileToken"></div>
@@ -620,9 +622,9 @@ function typewrite(text){
 }
 
 const FB_PLACEHOLDERS = {
-  si: { name:"ඔබේ නම", message:"ඔබේ අදහස / ප්‍රශ්නය / යෝජනාව..." },
-  ta: { name:"உங்கள் பெயர்", message:"உங்கள் கருத்து / கேள்வி / யோசனை..." },
-  en: { name:"Your name", message:"Your feedback / question / suggestion..." }
+  si: { name:"ඔබේ නම", email:"ඔබේ Email එක", message:"ඔබේ අදහස / ප්‍රශ්නය / යෝජනාව..." },
+  ta: { name:"உங்கள் பெயர்", email:"உங்கள் மின்னஞ்சல்", message:"உங்கள் கருத்து / கேள்வி / யோசனை..." },
+  en: { name:"Your name", email:"Your email", message:"Your feedback / question / suggestion..." }
 };
 
 function setLang(l){
@@ -634,8 +636,10 @@ function setLang(l){
   document.getElementById('btn-en').classList.toggle('active', l==='en');
   typewrite(HERO_LINES[l]);
   const fbName = document.getElementById('fbName');
+  const fbEmail = document.getElementById('fbEmail');
   const fbMessage = document.getElementById('fbMessage');
   if(fbName) fbName.placeholder = FB_PLACEHOLDERS[l].name;
+  if(fbEmail) fbEmail.placeholder = FB_PLACEHOLDERS[l].email;
   if(fbMessage) fbMessage.placeholder = FB_PLACEHOLDERS[l].message;
 }
 
@@ -714,8 +718,9 @@ if(feedbackForm){
     const btn = document.getElementById('fbSubmitBtn');
     const status = document.getElementById('fbStatus');
     const name = document.getElementById('fbName').value.trim();
+    const email = document.getElementById('fbEmail').value.trim();
     const message = document.getElementById('fbMessage').value.trim();
-    if(!name || !message) return;
+    if(!name || !email || !message) return;
 
     if(!fbTurnstileToken){
       status.className = 'feedback-status err';
@@ -733,6 +738,7 @@ if(feedbackForm){
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name,
+          email,
           message,
           time: new Date().toISOString(),
           source: "Grade 5 Scholarship page (Edu Pab)",
